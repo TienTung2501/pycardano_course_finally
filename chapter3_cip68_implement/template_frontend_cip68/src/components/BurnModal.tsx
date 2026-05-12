@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useWallet } from '@/context/WalletContext';
 import Modal from './Modal';
+import { API_BASE_URL } from '@/lib/api';
 
 interface BurnModalProps {
   isOpen: boolean;
@@ -53,7 +54,7 @@ export default function BurnModal({
     // TODO: Implement logic here
     setIsLoading(true);
     setTxStatus({ status: 'building', message: 'Đang tạo burn transaction...' });
-    const response =  await fetch('http://localhost:8000/api/burn', {
+    const response =  await fetch(`${API_BASE_URL}/api/burn`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -66,7 +67,7 @@ export default function BurnModal({
       setTxStatus({ status: 'signing', message: 'Vui lòng ký transaction...' });
     const witnessSet = await signTx(data.tx_cbor, true);
     setTxStatus({ status: 'submitting', message: 'Đang gửi...' });
-    const submitResponse = await fetch('http://localhost:8000/api/submit', {
+    const submitResponse = await fetch(`${API_BASE_URL}/api/submit`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ tx_cbor: data.tx_cbor, witness_set_cbor: witnessSet }),

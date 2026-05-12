@@ -77,13 +77,22 @@ cd frontend_template
 npm install
 ```
 
-### Bước 3: Chạy dev server
+### Bước 3: Cấu hình API URL
+Tạo file `.env.local` trong thư mục frontend:
+
+```bash
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+Khi deploy Vercel, đặt Environment Variable `NEXT_PUBLIC_API_URL` trỏ về domain backend Render.
+
+### Bước 4: Chạy dev server
 ```bash
 npm run dev
 ```
 Mở http://localhost:3000 - UI sẽ hiển thị nhưng các nút chưa hoạt động.
 
-### Bước 4: Điền logic theo hướng dẫn video
+### Bước 5: Điền logic theo hướng dẫn video
 Mở các file có chứa `// TODO` và điền logic theo thứ tự:
 
 1. **WalletContext** (TODO 1-6) - Nền tảng kết nối ví
@@ -116,7 +125,7 @@ Mở các file có chứa `// TODO` và điền logic theo thứ tự:
 
 ## 🔗 Backend API Endpoints
 
-Template kết nối với backend FastAPI (port 8000):
+Template kết nối với backend FastAPI (mặc định `http://localhost:8000` hoặc cấu hình bằng `NEXT_PUBLIC_API_URL`):
 
 - `POST /api/mint` - Build unsigned mint transaction
 - `POST /api/update` - Build unsigned update transaction

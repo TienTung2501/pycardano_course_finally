@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import UpdateModal from './UpdateModal';
 import BurnModal from './BurnModal';
+import { API_BASE_URL } from '@/lib/api';
 
 interface NFTListProps {
   walletAddress: string;
@@ -50,7 +51,7 @@ export default function NFTList({ walletAddress, scriptInfo, setTxStatus, refres
    * Hướng dẫn:
    * 1. setLoading(true)
    * 2. Try-catch:
-   *    - Gọi GET http://localhost:8000/api/wallet/${walletAddress}
+  *    - Gọi GET ${API_BASE_URL}/api/wallet/${walletAddress}
    *    - Parse response JSON
    *    - Filter data.assets: chỉ giữ assets có:
    *      + policy_id === PLATFORM_POLICY_ID
@@ -68,7 +69,7 @@ export default function NFTList({ walletAddress, scriptInfo, setTxStatus, refres
     // TODO: Implement logic here
     setLoading(true);
     try{
-    const response =  await fetch(`http://localhost:8000/api/wallet/${walletAddress}`);
+    const response =  await fetch(`${API_BASE_URL}/api/wallet/${walletAddress}`);
     const data = await response.json();
     if (!data.success) return;
      // Filter CIP-68 user tokens (policy ID + prefix 000de140)
@@ -109,7 +110,7 @@ export default function NFTList({ walletAddress, scriptInfo, setTxStatus, refres
    * 
    * Hướng dẫn:
    * 1. Try-catch:
-   *    - Gọi GET http://localhost:8000/api/metadata/${tokenName}
+  *    - Gọi GET ${API_BASE_URL}/api/metadata/${tokenName}
    *    - Parse response
    *    - Nếu data.success:
    *      + Parse description từ data.metadata (có thể là object)
@@ -121,7 +122,7 @@ export default function NFTList({ walletAddress, scriptInfo, setTxStatus, refres
   const loadMetadata = async (tokenName: string, index: number) => {
     // TODO: Implement logic here
     try {
-      const response = await fetch(`http://localhost:8000/api/metadata/${tokenName}`);
+      const response = await fetch(`${API_BASE_URL}/api/metadata/${tokenName}`);
       const data = await response.json();
       if (data.success) {
          let description = '';

@@ -6,6 +6,7 @@ import WalletConnect from '@/components/WalletConnect';
 import MintForm from '@/components/MintForm';
 import NFTList from '@/components/NFTList';
 import TransactionStatus from '@/components/TransactionStatus';
+import { API_BASE_URL } from '@/lib/api';
 
 /**
  * HomeContent Component
@@ -36,7 +37,7 @@ export default function HomeContent() {
    * Hướng dẫn:
    * 1. Nếu không có walletAddress → setBech32Address(''), return
    * 2. Try-catch:
-   *    - Gọi GET http://localhost:8000/api/convert-address?hex_address=${walletAddress}
+  *    - Gọi GET ${API_BASE_URL}/api/convert-address?hex_address=${walletAddress}
    *    - Parse response
    *    - Nếu data.success: setBech32Address(data.bech32_address)
    * 3. Catch error: console.error
@@ -49,7 +50,7 @@ export default function HomeContent() {
       }
       try {
          const response = await fetch(
-      `http://localhost:8000/api/convert-address?hex_address=${walletAddress}`
+      `${API_BASE_URL}/api/convert-address?hex_address=${walletAddress}`
     );
     const data = await response.json();
      if (data.success) {
@@ -70,7 +71,7 @@ export default function HomeContent() {
    * 
    * Hướng dẫn:
    * 1. Try-catch:
-   *    - Gọi GET http://localhost:8000/api/script-info
+  *    - Gọi GET ${API_BASE_URL}/api/script-info
    *    - Parse response
    *    - setScriptInfo(data)
    * 2. Catch error: console.error
@@ -78,7 +79,7 @@ export default function HomeContent() {
   const fetchScriptInfo = async () => {
     // TODO: Implement logic here
     try{
-      const response = await fetch('http://localhost:8000/api/script-info');
+      const response = await fetch(`${API_BASE_URL}/api/script-info`);
       const data = await response.json();
       setScriptInfo(data);
     }

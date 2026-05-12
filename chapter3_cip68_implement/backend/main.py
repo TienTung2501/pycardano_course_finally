@@ -70,6 +70,21 @@ from offchain.cip68_utils import (
 # Load environment variables
 load_dotenv()
 
+
+def _get_cors_origins() -> List[str]:
+    default_origins = ["http://localhost:3000", "http://127.0.0.1:3000"]
+    raw_origins = os.getenv("CORS_ORIGINS", "").strip()
+    if not raw_origins:
+        return default_origins
+    if raw_origins == "*":
+        return ["*"]
+    extra_origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
+    merged: List[str] = []
+    for origin in default_origins + extra_origins:
+        if origin not in merged:
+            merged.append(origin)
+    return merged
+
 # Khai báo biến toàn cục
 
 chain_context: Optional [BlockFrostChainContext] = None
@@ -255,7 +270,7 @@ app = FastAPI(
 # Cho phép truy cập từ frontend (localhost:3000)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=_get_cors_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -849,4 +864,6 @@ async def list_all_tokens():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    host = os.getenv("HOST", "0.0.0.0")
+    port = int(os.getenv("PORT", "8000"))
+    uvicorn.run(app, host=host, port=port)

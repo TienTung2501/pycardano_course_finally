@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useWallet } from '@/context/WalletContext';
+import { API_BASE_URL } from '@/lib/api';
 
 interface MintFormProps {
   walletAddress: string;
@@ -40,7 +41,7 @@ export default function MintForm({ walletAddress, setTxStatus, scriptInfo, onMin
    * 3. setTxStatus({ status: 'building', message: 'Đang tạo transaction...' })
    * 
    * 4. BƯỚC 1 - BUILD TRANSACTION:
-   *    - Gọi POST http://localhost:8000/api/mint
+  *    - Gọi POST ${API_BASE_URL}/api/mint
    *    - Body: { wallet_address: walletAddress, token_name: tokenName, description: description }
    *    - Parse response JSON
    *    - Nếu !data.success → throw Error(data.message)
@@ -51,7 +52,7 @@ export default function MintForm({ walletAddress, setTxStatus, scriptInfo, onMin
    * 
    * 6. BƯỚC 3 - SUBMIT TRANSACTION:
    *    - setTxStatus({ status: 'submitting', message: 'Đang gửi transaction...' })
-   *    - Gọi POST http://localhost:8000/api/submit
+  *    - Gọi POST ${API_BASE_URL}/api/submit
    *    - Body: { tx_cbor: data.tx_cbor, witness_set_cbor: witnessSet }
    *    - Parse response
    *    - Nếu !submitData.success → throw Error
@@ -79,7 +80,7 @@ try {
     setIsLoading(true);
     setTxStatus({ status: 'building', message: 'Đang tạo transaction...' });
      // BƯỚC 1: BUILD TRANSACTION
-     const response = await fetch('http://localhost:8000/api/mint', {
+    const response = await fetch(`${API_BASE_URL}/api/mint`, {
        method: 'POST',
        headers: { 'Content-Type': 'application/json' },
        body :  JSON.stringify({
@@ -95,7 +96,7 @@ try {
        const witnessSet = await signTx(data.tx_cbor, true);
         // BƯỚC 3: SUBMIT TRANSACTION
         setTxStatus({ status: 'submitting', message: 'Đang gửi transaction...' });
-      const submitResponse = await fetch('http://localhost:8000/api/submit', {
+      const submitResponse = await fetch(`${API_BASE_URL}/api/submit`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ tx_cbor: data.tx_cbor, witness_set_cbor: witnessSet }),
