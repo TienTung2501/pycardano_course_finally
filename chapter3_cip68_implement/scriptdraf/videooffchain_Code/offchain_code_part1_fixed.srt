@@ -1,0 +1,2744 @@
+﻿1
+00:00:05,000 --> 00:00:11,000
+Xin chào mọi người. Chào mừng mọi người đã đến
+với video tiếp theo trong khóa học lập trình
+Cardano của chúng tôi. Ờ
+
+2
+00:00:13,000 --> 00:00:19,000
+trong video này chúng ta sẽ tiếp tục quá trình
+triển khai ví dụ CIP-68. Ờ sau khi chúng ta đã
+triển khai thành
+
+3
+00:00:22,000 --> 00:00:28,000
+hợp đồng thông minh lên mạng ờ Preprod
+Testnet. Đấy thì trong bài học này thì chúng
+ta sẽ thực hiện code off
+
+4
+00:00:31,000 --> 00:00:36,850
+để tương tác với các tính năng của hợp đồng
+thông minh bao gồm mint token,
+
+5
+00:00:37,000 --> 00:00:43,000
+update metadata va burn token
+
+6
+00:00:44,000 --> 00:00:50,000
+khi chúng ta đã triển khai hợp đồng thông minh
+ở giai đoạn trước rồi đấy thì chúng ta sẽ nhảy
+
+7
+00:00:54,000 --> 00:00:59,850
+code off-chain luôn. Mình sẽ hướng dẫn các bạn
+trực tiếp từng bước một. Thì
+
+8
+00:01:00,000 --> 00:01:06,000
+tiên vẫn như các bước chuẩn bị trước đó thì
+chúng ta cũng phải set up môi trường. Đầu tiên
+chúng ta khởi tạo setup
+
+9
+00:01:09,000 --> 00:01:15,000
+trường ảo thì chúng ta sẽ vào cái thư mục
+CIP-68 trước.
+
+10
+00:01:19,000 --> 00:01:25,000
+Đây set up môi trường chúng ta sẽ đợi một lúc.
+
+11
+00:01:35,000 --> 00:01:36,200
+Ok.
+
+12
+00:01:36,000 --> 00:01:42,000
+Sau khi chúng ta đã setup môi trường ảo xong
+rồi, chúng ta sẽ thực hiện kích hoạt môi
+trường ảo. Thì đây là một câu
+
+13
+00:01:44,000 --> 00:01:48,850
+trên để kích hoạt môi trường ảo trên Windows.
+
+14
+00:01:49,000 --> 00:01:55,000
+Rồi sau khi kích hoạt xong rồi thì chúng ta sẽ
+thực hiện cài đặt các thư viện liên quan đến
+PyCardano hay là những thư viện
+
+15
+00:01:58,000 --> 00:02:04,000
+thực hiện để xây dựng các giao dịch liên quan
+đến Blockfrost đấy thì mọi người sẽ thêm cho
+mình một file là requirements.txt.
+
+16
+00:02:09,000 --> 00:02:15,000
+Trong đây sẽ ừ đưa ra những cái phiên bản về
+các thư viện mà chúng ta sẽ sử
+
+17
+00:02:17,000 --> 00:02:23,000
+Thì trong bài học code off-chain này chúng ta
+sẽ thực hiện cài đặt các cái thư viện như
+Cardano,
+
+18
+00:02:28,000 --> 00:02:34,000
+Blockfrost, Python này, Python.net ENV này và
+một số các cái thư viện khác
+
+19
+00:02:36,000 --> 00:02:42,000
+Fast API để sử xây dựng backend cho bài học
+tiếp theo và Unicor hoặc là
+
+20
+00:02:45,000 --> 00:02:51,000
+BATC. Đấy thì chúng ta sẽ thực hiện chúng ta
+lưu vào lưu vào và thoát bỏ.
+
+21
+00:02:53,000 --> 00:02:59,000
+Chúng ta sẽ thực hiện câu lệnh pip install -r
+requirements.txt để thực hiện chạy
+
+22
+00:03:05,000 --> 00:03:11,000
+chúng ta không cần
+
+23
+00:03:23,000 --> 00:03:29,000
+khong satisfy duoc version lon hon 11
+
+24
+00:03:41,000 --> 00:03:47,000
+phiên bản sớm hơn xem nào. Không có à?
+
+25
+00:03:56,000 --> 00:04:02,000
+Không có thì chúng ta không cần ghi phiên bản
+đâu. Nó sẽ chủ động install phiên bản lớn nhất
+cho chúng ta đấy. Mới nhất cho chúng ta.
+
+26
+00:04:09,000 --> 00:04:15,000
+Đợi cho quá trình install các thư viện trong
+quá trình này nhá.
+
+27
+00:04:18,000 --> 00:04:24,000
+Để cho nó tự chạy thì chúng ta sẽ tạo một cái
+file .env đấy, file đề lưu biến môi trường của
+chúng ta. Thì giống như
+
+28
+00:04:26,000 --> 00:04:32,000
+bài học trước đó thì mình vẫn dùng lại file
+.env của các bài học trước đó. Mọi người có
+thể xem nhé.
+
+29
+00:04:35,000 --> 00:04:41,000
+Ok.
+
+30
+00:05:03,000 --> 00:05:09,000
+Ok, đã cài đặt xong các thư viện. Tiếp theo
+thì chúng ta sẽ bắt đầu đi vào code. Thì đầu
+tiên thì chúng ta sẽ thực
+
+31
+00:05:12,000 --> 00:05:18,000
+tạo một file gọi là cip68_utils.py.
+
+32
+00:05:19,000 --> 00:05:25,000
+Đấy, file này nó sẽ mục đích là chúng ta sẽ
+khai báo các cái
+
+33
+00:05:27,000 --> 00:05:33,000
+khi tạo file đấy, chúng ta sẽ tạo một thư mục
+off-chain để lưu code off-chain của chúng ta.
+Đấy, tạo file Shift
+
+34
+00:05:35,000 --> 00:05:41,000
+để gọi là chúng ta sẽ khai báo các cái biến,
+các cái hàng số, các cái kiểu dữ
+
+35
+00:05:44,000 --> 00:05:50,000
+và các cái hàm cần thiết cho quá trình chúng
+ta ừ tích hợp thư điện. Đấy
+
+36
+00:05:52,000 --> 00:05:58,000
+chúng ta sẽ nhảy vào code luôn. Đấy thì mình
+sẽ có một chút chú thích về cái file này. Đấy
+chung
+
+37
+00:06:01,000 --> 00:06:07,000
+cấp các cái hàng function để thực hiện tương
+tác với CIP-68 hợp đồng thông minh. Đấy.
+
+38
+00:06:09,000 --> 00:06:15,000
+Tiếp theo thì chúng ta sẽ import một số các
+thư viện cần thiết ừ
+
+39
+00:06:20,000 --> 00:06:26,000
+gồm các cái thư viện như là xử lý chas này, OS
+nà, các cái thư viện liên quan đến
+
+40
+00:06:28,000 --> 00:06:34,000
+hay là thư viện liên quan đến của Python. Rồi
+tiếp theo là import PyCardano,
+
+41
+00:06:38,000 --> 00:06:44,000
+các cái thư viện. Ok. Tiếp theo chúng ta sẽ
+định nghĩa hai cái hàng số
+
+42
+00:06:45,000 --> 00:06:50,850
+cho cái reference token và user token.
+
+43
+00:06:51,000 --> 00:06:57,000
+Đấy, đây chính là hai cái hàng số mà chúng ta
+sẽ phải sử dụng sau này khá là nhiều để tạo ra
+các user token và reference token.
+
+44
+00:07:04,000 --> 00:07:05,850
+Ok.
+
+45
+00:07:06,000 --> 00:07:12,000
+Rồi sau khi chúng ta đã thêm hai cái prefix
+này vào rồi thì chúng ta sẽ định nghĩa các cái
+datum cũng như là redeemer cho CIP-68.
+
+46
+00:07:19,000 --> 00:07:25,000
+Đấy 68 thì đầu tiên chúng ta sẽ thực hiện định
+nghĩa redeem cho
+
+47
+00:07:28,000 --> 00:07:34,000
+đồng mining policy mà chúng ta đã code trước
+đó. Thì hợp đồng minting
+
+48
+00:07:37,000 --> 00:07:43,000
+redeem kiểu redeem cho minting ấy nó sẽ có hai
+vari hai vario gồm đó là
+
+49
+00:07:49,000 --> 00:07:55,000
+và burn token và nó có cái tham số đầu vào là
+token name. Đấy chúng ta cũng phải định nghĩa
+tương tự.
+
+50
+00:07:59,000 --> 00:08:05,000
+Đầu tiên đó là mint token đây.
+
+51
+00:08:15,000 --> 00:08:21,000
+Đấy, mình sẽ nói lại một chút cái a
+
+52
+00:08:27,000 --> 00:08:32,850
+cái ừ tham số đầu tiên là ừ con ST ID
+
+53
+00:08:33,000 --> 00:08:39,000
+này. Cái này chính là cái vị trí đầu tiên của
+cái hai cái variant của cái mint redeemer.
+
+54
+00:08:44,000 --> 00:08:50,000
+Khi chúng ta đưa ra conctor là 1 thì khi chúng
+ta chuyển cái data từ cái by
+
+55
+00:08:52,000 --> 00:08:58,000
+Cardano này này lên on thì nó sẽ hiểu là nó là
+cái tham số đầu tiên là cái varian vị trí
+
+56
+00:09:02,000 --> 00:09:08,000
+tiên đây này nó khớp với cái mint token. Đấy.
+Còn tiếp theo là cái a
+
+57
+00:09:11,000 --> 00:09:17,000
+nghĩa cái redeem thứ hai là cái bơ burn token
+
+58
+00:09:20,000 --> 00:09:26,000
+thì nó sẽ có cái trường contractor là 1 v
+token name. Đấy thì khi chúng ta
+
+59
+00:09:28,000 --> 00:09:34,000
+lên nó sẽ hiểu là contractor làng một thì nó
+sẽ đứng ở vị trí thứ hai trong cái mint redeem
+này. Kiểu dữ liệu
+
+60
+00:09:38,000 --> 00:09:44,000
+redeem này. Đấy tức là contractor là vị trí
+của hành động
+
+61
+00:09:47,000 --> 00:09:53,000
+định nghĩa trong kiểu dữ liệu trên hợp đồng
+thông minh. Mọi người có thể hiểu rõ ràng như
+thế. Tương
+
+62
+00:09:55,000 --> 00:10:01,000
+như vậy, ờ đối với store hợp đồng store ấy,
+tức là khai báo
+
+63
+00:10:03,000 --> 00:10:09,000
+cho cái store nó cũng có hai cái ờ redeem. Đầu
+tiên là update, thứ hai là
+
+64
+00:10:11,000 --> 00:10:17,000
+reference. Chúng ta cũng khai báo tương tự.
+Mọi người có hiểu ý tưởng không? Đấy.
+
+65
+00:10:21,000 --> 00:10:27,000
+Đấy. Update metadata này. Ép kiểu thành Plutus
+data. Đấy.
+
+66
+00:10:28,000 --> 00:10:34,000
+Trong đó thì cái thằng redeem này thì nó không
+có tham số là token name ở trên bởi vì là
+
+67
+00:10:38,000 --> 00:10:43,850
+chỉ cần vị trí thôi. Trong hợp đồng nó chỉ cần
+vị trí để khớp với redeem là
+
+68
+00:10:44,000 --> 00:10:48,850
+để hợp đồng nó biết redeem của nó là gì thôi.
+
+69
+00:10:49,000 --> 00:10:54,850
+Đấy, tương tự như vậy với burn reference cũng
+tương tự.
+
+70
+00:10:55,000 --> 00:11:01,000
+Tiếp theo đấy xong phần định nghĩa
+
+71
+00:11:07,000 --> 00:11:13,000
+định nghĩa tim.
+
+72
+00:11:17,000 --> 00:11:23,000
+Rồi tiếp theo thì chúng ta sẽ định nghĩa datum
+đấy.
+
+73
+00:11:24,000 --> 00:11:30,000
+Định nghĩa datum vẫn khai báo acc data class
+này ờ kiểu
+
+74
+00:11:32,000 --> 00:11:38,000
+và theo kiểu dữ liệu data. Đấy thì datum sẽ
+chứa các trường sau đây
+
+75
+00:11:40,000 --> 00:11:46,000
+y hệt như trên hợp đồng th thông thông minh
+chúng ta định nghĩa kiểu ấy. Đầu tiên vẫn cần
+có constructor ID đấy.
+
+76
+00:11:50,000 --> 00:11:56,000
+Vì là trong Datum của CIP-68 ấy nó sẽ không có
+varian. Varian của nó là bộ dữ
+
+77
+00:11:59,000 --> 00:12:05,000
+này là duy nhất rồi nên chúng ta cũng cần phải
+khai báo nó là bắt đầu từ vị trí không. Đấy.
+Tiếp theo đó là trường policy ID này.
+
+78
+00:12:11,000 --> 00:12:17,000
+Ứ tiếp theo đó là asset name. Thì asset name
+này nó chưa có prefix mọi người chú
+
+79
+00:12:19,000 --> 00:12:25,000
+Và tiếp theo là trường owner. Hon chính là
+public key để sau này chúng ta xác thực trừ ký
+ấy.
+
+80
+00:12:31,000 --> 00:12:35,850
+Tiếp theo là metadata kiểu dữ liệu là di đấy.
+
+81
+00:12:36,000 --> 00:12:42,000
+Dictionary với key và value và version. Ok,
+như vậy chúng ta đã định nghĩa xong kiểu 68 ở
+off-chain đấy.
+
+82
+00:12:50,000 --> 00:12:56,000
+Rồi tiếp theo thì chúng ta sẽ viết các cái hàm
+ờ
+
+83
+00:12:58,000 --> 00:13:04,000
+à lot script
+
+84
+00:13:08,000 --> 00:13:13,850
+file plutus.json.
+
+85
+00:13:14,000 --> 00:13:20,000
+Đấy. Ờ file này thì chúng ta sẽ phải định
+nghĩa có tham số đầu vào là
+
+86
+00:13:24,000 --> 00:13:30,000
+đường dẫn của file này và trả về kiểu một
+dictionary.
+
+87
+00:13:34,000 --> 00:13:39,850
+Đấy, chú thích một chút.
+
+88
+00:13:40,000 --> 00:13:45,850
+Đấy, tiếp theo chúng ta sẽ thực hiện mở cái
+file với đường dẫn
+
+89
+00:13:46,000 --> 00:13:52,000
+load vào đấy. Tiếp theo chúng ta sẽ khai báo
+script
+
+90
+00:13:54,000 --> 00:14:00,000
+một mảng rỗng xong duyệt qua ờ các validator
+trong file ờ với cái title
+
+91
+00:14:05,000 --> 00:14:11,000
+cái key là validator đấy.
+
+92
+00:14:15,000 --> 00:14:17,850
+Đấy,
+
+93
+00:14:18,000 --> 00:14:24,000
+ra title của cái validator. Xong lấy ra
+script.
+
+94
+00:14:26,000 --> 00:14:32,000
+Đấy, xong trả về script.
+
+95
+00:14:51,000 --> 00:14:55,850
+Cái này đây đúng không? Ok,
+
+96
+00:14:56,000 --> 00:15:01,850
+script xong rồi nhá. Tiếp theo chúng ta sẽ
+thực hiện load minting.
+
+97
+00:15:02,000 --> 00:15:08,000
+Lad minting poly script này từ.
+
+98
+00:15:12,000 --> 00:15:18,000
+Đấy chúng ta sẽ khai báo thằng này nó sẽ là
+một hàm nhận vào đường dẫn và trả về PlutusV3Script.
+
+99
+00:15:25,000 --> 00:15:31,000
+Ừ, vì là đây là một ví dụ ờ gọi là giúp cho
+mọi người hiểu về
+
+100
+00:15:34,000 --> 00:15:40,000
+lý ờ xây dựng và triển khai chuẩn CIP-68 trong
+thực tế. Chính vì thế mà
+
+101
+00:15:42,000 --> 00:15:48,000
+đồng nó sẽ đơn giản, nó sẽ không có các
+parameter nên nó sẽ tạo ra policy ID cố định.
+Đấy,
+
+102
+00:15:54,000 --> 00:16:00,000
+ta sẽ lấy ra script này. Đấy, dùng cái hàm
+load
+
+103
+00:16:02,000 --> 00:16:08,000
+ở trên ấy. Đấy, xong lấy ra cái
+
+104
+00:16:09,000 --> 00:16:15,000
+tin của cái script đấy. Thông tin của cái hàm
+script mint ấy. Đấy.
+
+105
+00:16:20,000 --> 00:16:25,850
+hiện trả về kiểu P3.
+
+106
+00:16:26,000 --> 00:16:32,000
+Ok chưa? Rồi tiếp theo thì chúng ta tương tự
+như vậy chúng ta cũng sẽ phải load cái script
+của cái hợp đồng store đúng không?
+
+107
+00:16:38,000 --> 00:16:39,850
+Đấy,
+
+108
+00:16:40,000 --> 00:16:46,000
+đấy. Nó cũng trả về Plutus V3 script này.
+
+109
+00:16:52,000 --> 00:16:58,000
+Rồi tiếp theo cũng tương tự như vậy, nó chỉ
+thay cái ờ title thôi, thay cái key là CIP-68
+
+110
+00:17:02,000 --> 00:17:07,850
+Chấm span. Lấy đúng cái hàm spend trong
+
+111
+00:17:08,000 --> 00:17:14,000
+gì nhở? Đây lấy đúng cái hàm này trong hợp
+đồng thông minh. Ừ được
+
+112
+00:17:17,000 --> 00:17:23,000
+sang file. sơ đấy. Tiếp theo thì chúng ta sẽ
+phải viết một cái hàm gọi là hàm tạo ờ CIP-68
+asset name. Đấy,
+
+113
+00:17:36,000 --> 00:17:37,850
+name.
+
+114
+00:17:38,000 --> 00:17:44,000
+Ừ, tức là gắn thêm cái prefix cho nó này. Đấy,
+mình gọi là vừa code vừa có
+
+115
+00:17:45,000 --> 00:17:51,000
+một chút. Ví dụ đầu tiên đó là chúng ta sẽ
+
+116
+00:17:52,000 --> 00:17:58,000
+phải convert cái ching nếu như cái token name
+nó đang là ing kiểu xem là
+
+117
+00:17:59,000 --> 00:18:05,000
+tra kiểu không đấy nếu mà token name là exing
+thì chuyển thành
+
+118
+00:18:07,000 --> 00:18:13,000
+còn không thì giữ nguyên giữ nguyên ok rồi sau
+đó thì chúng ta sẽ
+
+119
+00:18:16,000 --> 00:18:22,000
+hiện nối thêm nối thêm đấy.
+
+120
+00:18:31,000 --> 00:18:35,850
+Tương tự với user username username cũng vậy.
+
+121
+00:18:36,000 --> 00:18:42,000
+User token đấy. Đấy và trả về hai thằng hai
+thằng đấy. Rồi tiếp theo thì chúng
+
+122
+00:18:44,000 --> 00:18:50,000
+sẽ tạo một cái hàm để xử lý metadata. Đấy
+
+123
+00:18:52,000 --> 00:18:58,000
+nó thành cái metadata trong datum. Đấy mình sẽ
+vừa viết.
+
+124
+00:19:03,000 --> 00:19:09,000
+Đấy thì metadata khi chúng ta xây dựng thì nó
+sẽ có
+
+125
+00:19:11,000 --> 00:19:17,000
+loại ấy. Thứ nhất là nó chỉ có trường
+description thôi. Trong bài này thì mình chỉ
+xây dựng met data là
+
+126
+00:19:20,000 --> 00:19:26,000
+Chỉ có trường description nó sẽ chuyển cái
+description từng
+
+127
+00:19:29,000 --> 00:19:35,000
+encode. Đấy, nếu như metadata nó mà có nhiều
+hơn các trường này thì mình sẽ
+
+128
+00:19:37,000 --> 00:19:43,000
+xử lý. Đấy, đầu tiên là for key và value trong
+metadata.
+
+129
+00:19:46,000 --> 00:19:52,000
+Đấy, nếu value mà là thì chúng ta sẽ phải
+chuyển nó sang
+
+130
+00:19:55,000 --> 00:20:01,000
+dạng bài và nếu không thì giữ nguyên.
+
+131
+00:20:13,000 --> 00:20:19,000
+Rồi sau khi xử lý xong metadata rồi tiếp theo
+thì chúng ta sẽ thực hiện ờ tạo
+
+132
+00:20:22,000 --> 00:20:28,000
+cho chuẩn CIP-68. Đấy thì chúng ta sẽ dựng hàm
+này đây với các tham số là bolos ID này,
+
+133
+00:20:34,000 --> 00:20:36,850
+name này,
+
+134
+00:20:37,000 --> 00:20:43,000
+key head là metadata có thể là các kiểu đơn dữ
+liệu hoặc là kiểu
+
+135
+00:20:45,000 --> 00:20:51,000
+đấy và versionấy trả về kiểu CIP-68 chúng ta
+đã khai báo trên đấy.
+
+136
+00:20:54,000 --> 00:21:00,000
+Tiếp theo là rồi đầu tiên chúng ta sẽ xử lý
+metadata.
+
+137
+00:21:09,000 --> 00:21:14,850
+Đấy xử lý metadata vì là polos idame đều là
+dạng buy hết
+
+138
+00:21:15,000 --> 00:21:21,000
+đúng không? Còn cái metadata thì nó vẫn là
+kiểu cây là ing đấy nên chúng ta
+
+139
+00:21:25,000 --> 00:21:31,000
+xử lý nếu như metadata mà là có một trường ấy,
+
+140
+00:21:32,000 --> 00:21:38,000
+một trường là ching thì chúng ta tạo metadata
+dùng cái hàm hàm tạo met convert cái
+
+141
+00:21:39,000 --> 00:21:45,000
+đấy sang kiểu metadata phù hợp với dữ liệu on
+trên đấy. Nếu metadata mà là dictionary
+
+142
+00:21:48,000 --> 00:21:52,850
+chúng ta cũng cần phải xử lý đấy.
+
+143
+00:21:53,000 --> 00:21:59,000
+Metadata mà là dictionary thì convert.
+
+144
+00:22:03,000 --> 00:22:09,000
+Đầu tiên chúng ta sẽ khởi tạo một cái mảng một
+cái đối tượng metadata đích rỗng này. Đấy.
+
+145
+00:22:13,000 --> 00:22:18,850
+Đấy. Tiếp theo là duyệt qua từng key và value
+trong dictionary của metadata này
+
+146
+00:22:19,000 --> 00:22:25,000
+key value in metadata item đấy key.
+
+147
+00:22:42,000 --> 00:22:45,850
+Ừ.
+
+148
+00:22:46,000 --> 00:22:52,000
+nếu như gọi là key mà là ing ấy UTX F8 ấy thì
+chúng ta phải
+
+149
+00:22:53,000 --> 00:22:59,000
+lại. Đấy tương tự như vậy buy cũng thế value
+của dictionary cũng
+
+150
+00:23:02,000 --> 00:23:08,000
+đấy. Và sau đó thì metadata ờ gắn vào metadata
+
+151
+00:23:11,000 --> 00:23:17,000
+nếu không thì giữ nguyên
+
+152
+00:23:23,000 --> 00:23:29,000
+và cuối cùng là return.
+
+153
+00:23:35,000 --> 00:23:39,850
+Rồi ờ chúng ta sẽ viết thêm một vài hàm nữa
+
+154
+00:23:40,000 --> 00:23:46,000
+là hàm get policy id từ cái thằng script ấ đấy.
+
+155
+00:23:52,000 --> 00:23:58,000
+Follow Cid nó lấy vào là cái mint script và nó
+trả về kiểu dữ liệu script khác. Đấy.
+
+156
+00:24:12,000 --> 00:24:18,000
+Rồi ơ đây nhập.
+
+157
+00:24:22,000 --> 00:24:28,000
+Ok. Tiếp theo thì chúng ta sẽ viết thêm một
+cái hàm này lấy public key hash trong một số
+trường hợp cần thiết từ
+
+158
+00:24:30,000 --> 00:24:36,000
+đấy. Defile này exchanger
+
+159
+00:24:37,000 --> 00:24:42,850
+datum này. Tam số nhận vào là datum đấy.
+
+160
+00:24:43,000 --> 00:24:49,000
+Datum kiểu CIP-68 đã được convert về đấy.
+return datum.
+
+161
+00:24:56,000 --> 00:25:02,000
+Rồi tiếp theo cần một hàm để lấy address từ
+script của Plutus V3. Đấy, get
+
+162
+00:25:05,000 --> 00:25:11,000
+address nà. Hàm này là một cái hàm lấy vào
+tham số là Plutus script và network trả về
+kiểu address. Đấy.
+
+163
+00:25:19,000 --> 00:25:25,000
+Rồi đầu tiên đó làuscript.h này. Đấy.
+
+164
+00:25:41,000 --> 00:25:47,000
+Nhầm.
+
+165
+00:25:55,000 --> 00:25:59,850
+Xong. return address. Đấy.
+
+166
+00:26:00,000 --> 00:26:06,000
+Ok. Ờ như vậy thì chúng ta đã có một số hàm
+cần thiết rồi. Đấy.
+
+167
+00:26:09,000 --> 00:26:15,000
+Tiếp theo thì chúng ta sẽ sang ờ phần quan
+trọng hơn đó là viết các cái
+
+168
+00:26:17,000 --> 00:26:21,850
+để cái thực hiện view giao dịch.
+
+169
+00:26:22,000 --> 00:26:28,000
+Đấy chúng ta sẽ tắt cái này đi.
+
+170
+00:26:29,000 --> 00:26:35,000
+Ok. Tiếp theo đó là tạo một cái file ừ là file
+
+171
+00:26:36,000 --> 00:26:42,000
+cip68_operations.py để thực hiện build giao dịch.
+
+172
+00:26:43,000 --> 00:26:49,000
+CIP-68 operation
+
+173
+00:26:55,000 --> 00:27:01,000
+trong thư mục off CIP-68 operation này. Đấy,
+file này
+
+174
+00:27:04,000 --> 00:27:10,000
+thực hiện cung cấp các hàm để mint burn, token
+này.
+
+175
+00:27:12,000 --> 00:27:17,850
+Sử dụng by cano để xây dựng transaction. Đầu
+tiên vẫn là import thư viện
+
+176
+00:27:18,000 --> 00:27:24,000
+thiết. Đấy. Import các rồi.
+
+177
+00:27:31,000 --> 00:27:37,000
+Import các nào.
+
+178
+00:27:42,000 --> 00:27:48,000
+Đấy. Tiếp theo là import.netv net invv để load
+các biến môi trường. Đấy, tiếp
+
+179
+00:27:50,000 --> 00:27:56,000
+là import Blockfrost này, import PyCardano
+này. Đấy, tiếp theo là import một
+
+180
+00:27:57,000 --> 00:28:03,000
+cái hàm mà chúng ta đã xây dựng trước đó của
+cái file cip68_utils.py. Đấy.
+
+181
+00:28:05,000 --> 00:28:11,000
+Đấy. Ok. Bước đầu tiên thì chúng ta sẽ thực
+hiện load envir environment. Đấy,
+
+182
+00:28:12,000 --> 00:28:18,000
+tiếp theo thì chúng ta sẽ xây dựng một cái hàm
+hàm khởi tạo context trên.
+
+183
+00:28:19,000 --> 00:28:20,850
+Đấy,
+
+184
+00:28:21,000 --> 00:28:27,000
+nghĩa hàm này. Đấy, mình sẽ thêm một chú thích
+vào đây.
+
+185
+00:28:28,000 --> 00:28:34,000
+Rồi chúng ta sẽ lấy ra network từ cái biến môi
+trường. Đấy, thứ hai là lấy Blockfrost key.
+
+186
+00:28:39,000 --> 00:28:43,850
+Đấy. Ừ. Mình sẽ xem lại xem nào.
+
+187
+00:28:44,000 --> 00:28:50,000
+For project ID này đây mới đúng này. Đấy.
+Network. Network.
+
+188
+00:28:53,000 --> 00:28:59,000
+Ok. Rồi tiếp theo thì chúng ta sẽ map network
+tương ứng
+
+189
+00:29:03,000 --> 00:29:09,000
+và trả về cái context trên. Ok.
+
+190
+00:29:11,000 --> 00:29:17,000
+Như vậy chúng ta đã xong. Tiếp theo là hàm
+khôi phục các thông tin của ví.
+
+191
+00:29:19,000 --> 00:29:25,000
+Ừ trả về một double định nghĩa nó sẽ nhận vào
+cụm 24 ký tự và trả về top này. Đấy.
+
+192
+00:29:32,000 --> 00:29:38,000
+Rồi đầu tiên đó là khôi phục phí từ mnemonic.
+
+193
+00:29:42,000 --> 00:29:48,000
+Tiếp theo thì chúng ta sẽ lấy hai cái cặp key
+từ cái ờ dẫn suất. Đấy.
+
+194
+00:29:51,000 --> 00:29:57,000
+Tiếp theo thì chúng ta sẽ thực hiện gọi là tạo
+hai cái S key từ cái key trên.
+
+195
+00:30:02,000 --> 00:30:08,000
+Rồi tiếp theo thì chúng ta sẽ
+
+196
+00:30:11,000 --> 00:30:17,000
+thành public key public gọi là public key.
+
+197
+00:30:20,000 --> 00:30:22,850
+Ok.
+
+198
+00:30:23,000 --> 00:30:29,000
+Ừ. lấy cái network ra lấy lại cái network.
+Đấy.
+
+199
+00:30:36,000 --> 00:30:42,000
+Rồi tiếp theo thì chúng ta sẽ lấy địa chỉ
+chính
+
+200
+00:30:43,000 --> 00:30:49,000
+và trả về các cái giá trị cần thiết như là
+payment s key,
+
+201
+00:30:51,000 --> 00:30:55,850
+v key này, stake sake vred. Đấy.
+
+202
+00:30:56,000 --> 00:31:02,000
+Ok. Chúng ta sẽ có một cái hàm get network đi
+cho tiện.
+
+203
+00:31:04,000 --> 00:31:05,850
+Đấy,
+
+204
+00:31:06,000 --> 00:31:12,000
+nà lấy từ biến môi trường là return. Đấy. Ok.
+Rồi tiếp theo thì chúng
+
+205
+00:31:13,000 --> 00:31:19,000
+sẽ lấy các script trong bài này và lấy các
+clos.
+
+206
+00:31:22,000 --> 00:31:24,850
+Nói chung là lấy hết ấy.
+
+207
+00:31:25,000 --> 00:31:31,000
+Chúng ta sẽ khai báo ừ chung tích.
+
+208
+00:31:33,000 --> 00:31:39,000
+Rồi ờ đầu tiên đấy là hàm này nó nhận vào một
+cái tham số.
+
+209
+00:31:42,000 --> 00:31:48,000
+Tham số này là có thể non nhé. Đấy, nếu tham
+số là non
+
+210
+00:31:49,000 --> 00:31:55,000
+chúng ta sẽ thiết lập tham số của nó là cái
+đường dẫn vào cái thư mục Plot
+
+211
+00:31:56,000 --> 00:32:02,000
+Jason ấy. Đấy, if 68 này. 68 asset
+
+212
+00:32:05,000 --> 00:32:11,000
+gì à? Dynamic asset đúng rồi. Nếu như cái
+đường dẫn nó mà
+
+213
+00:32:14,000 --> 00:32:20,000
+có đường dẫn truyền vào thì chúng ta sẽ khai
+báo cái đường dẫn chính là cái đường dẫn của
+cái thư mục plutus.json
+
+214
+00:32:22,000 --> 00:32:28,000
+được biên dịch thành file plutus.json trong
+phần code hợp đồng thông minh trước đó. Đây
+này. Đấy.
+
+215
+00:32:30,000 --> 00:32:31,850
+Ok.
+
+216
+00:32:32,000 --> 00:32:38,000
+Rồi tiếp theo thì chúng ta sẽ lấy ra một là
+mint mint mining script đấy.
+
+217
+00:32:40,000 --> 00:32:46,000
+đến hàm load mint script mà chúng ta đã định
+nghĩa lúc này ấy bằng
+
+218
+00:32:48,000 --> 00:32:54,000
+theo thì chúng ta cũng tương tự chúng ta sẽ
+lấy thằng store script gọi đến hàm load store
+script đấy gọi là
+
+219
+00:32:57,000 --> 00:33:03,000
+theo tạo policy id từ mean script đấy tiếp
+theo là lấy network nào để lấy
+
+220
+00:33:06,000 --> 00:33:12,000
+theo là chúng ta sẽ lấy được cái địa chỉ từ
+cái store script P và network đấy. Và cuối
+cùng là trả về các giá trị chúng ta vừa lấy
+ra.
+
+221
+00:33:19,000 --> 00:33:20,850
+Ok.
+
+222
+00:33:21,000 --> 00:33:27,000
+Như vậy là chúng ta đã lấy xong ừ gọi là khởi
+tạo xong các cái hàm cần thiết rồi. Bây giờ
+thì chúng ta sẽ đi
+
+223
+00:33:30,000 --> 00:33:35,850
+những cái hàm chính. Đấy. Đầu tiên chúng ta sẽ
+thực hiện viết hàm mint.
+
+224
+00:33:36,000 --> 00:33:40,850
+Đầu tiên chúng ta sẽ định nghĩa hàm mint này.
+
+225
+00:33:41,000 --> 00:33:47,000
+Đấy các tham số truyền vào bao gồm là
+
+226
+00:33:55,000 --> 00:34:00,850
+con này đấy. Payment s key. Payment v key này.
+
+227
+00:34:01,000 --> 00:34:07,000
+Honner address này. name description này. Đấy,
+hàm này sẽ trả về
+
+228
+00:34:09,000 --> 00:34:15,000
+dictionary là kết quả giao dịch. Đấy,
+
+229
+00:34:18,000 --> 00:34:24,000
+sẽ vừa code vừa chú thích để sau này mọi người
+đọc lại tài liệu sẽ hiểu rõ hơn. Đấy, đầu tiên
+là khai báo
+
+230
+00:34:28,000 --> 00:34:34,000
+Lấy network ra. Tiếp theo là load script. Ừ.
+
+231
+00:34:35,000 --> 00:34:41,000
+Đấy. Tiếp theo là last script từ tất cả các
+cái script mà
+
+232
+00:34:44,000 --> 00:34:50,000
+ta đã lấy ra từ hàm get script lú trước đó ấy.
+Đấy. Tiếp theo là lấy honor public key.
+
+233
+00:34:57,000 --> 00:35:00,850
+Bước tiếp theo là chúng ta bắt đầu.
+
+234
+00:35:01,000 --> 00:35:06,850
+vào xây dựng giao dịch rồi thì đầu tiên thì nó
+sẽ là tạo asset name theo
+
+235
+00:35:07,000 --> 00:35:13,000
+CIP-68. Đấy, chúng ta sẽ lấy token name ra
+
+236
+00:35:14,000 --> 00:35:20,000
+encode nó lại thành dạng buy. Và tiếp theo là
+tạo
+
+237
+00:35:22,000 --> 00:35:28,000
+asset name và referent top asset name. Đấy từ
+cái hàm gọi là create shift 6 thằng asset name
+ấy.
+
+238
+00:35:32,000 --> 00:35:33,200
+Đấy.
+
+239
+00:35:33,000 --> 00:35:39,000
+Ok. Tiếp theo là tạo c ID kiểu by phải ép kiểu
+by nhá. Tiếp theo là tạo datum.
+
+240
+00:35:46,000 --> 00:35:52,000
+Tom bằng mở ngoặc.
+
+241
+00:36:03,000 --> 00:36:08,850
+Trong đây có các tham số như là policy ID này,
+asset name này,
+
+242
+00:36:09,000 --> 00:36:15,000
+Honner, public gh metadata. Metadata thì có
+trường description đấy.
+
+243
+00:36:19,000 --> 00:36:25,000
+Ok. Tiếp theo vẫn là quy trình quen thuộc
+giống như mint NFT bình thường thôi. Đầu tiên
+vẫn là tạo multi-asset asset cho mining.
+
+244
+00:36:31,000 --> 00:36:37,000
+Tạo multi-asset asset này. Đấy, trước khi tạo
+multi asset thì vẫn là khởi tạo asset.
+
+245
+00:36:39,000 --> 00:36:45,000
+Đấy, sau khởi tạo thì chúng ta sẽ thiết lập số
+lượng ứ thiết lập số lượng này.
+
+246
+00:36:49,000 --> 00:36:55,000
+Đấy, đầu tiên là chúng ta sẽ thiết lập số
+lượng cho reference token. Đấy, thứ hai là cho
+user token.
+
+247
+00:36:58,000 --> 00:37:04,000
+Đấy, asset của chúng ta sẽ ờ tiếp theo thì
+mint asset khởi tạo multi asset này
+
+248
+00:37:07,000 --> 00:37:13,000
+mint asset vào đấy mọi người nhớ chứ? Trong
+multi-asset sẽ có nhiều asset đấy.
+
+249
+00:37:20,000 --> 00:37:26,000
+Ok. Tiếp theo thì chúng ta sẽ thực hiện tạo
+redeem để thực hiện hành động là
+
+250
+00:37:30,000 --> 00:37:36,000
+gọi là hành động mint đấy. Redeem thì redeem
+cho hành động mint thì có là
+
+251
+00:37:38,000 --> 00:37:44,000
+là add kiểu kiểu là mint token như chúng ta đã
+khai
+
+252
+00:37:46,000 --> 00:37:52,000
+đấy. Đấy, mint token thì có tham số truyền vào
+là token name. Đấy, thì chúng ta sẽ gắn cái
+token name vào.
+
+253
+00:37:56,000 --> 00:38:02,000
+Rồi gắn token name. Rồi tiếp theo nhá, chúng
+trong tức là chúng ta đã khởi tạo multi
+
+254
+00:38:05,000 --> 00:38:11,000
+xong đúng không? Đấy, chúng ta sẽ đính cái
+multi asset này vào giao dịch mint. Đấy, thì
+chưa đến bước đó.
+
+255
+00:38:21,000 --> 00:38:27,000
+Chưa đến mức đó, chúng ta sẽ xử lý đầu tiên
+tạo hai cái đối tượng gọi là đối tượng
+reference token.
+
+256
+00:38:30,000 --> 00:38:36,000
+Ờ đấy vẫn phải gọi là quy trình tạo token
+
+257
+00:38:38,000 --> 00:38:44,000
+phải tạo ra asset và set khối lượng. Đây refer
+multi asset này.
+
+258
+00:38:48,000 --> 00:38:54,000
+Đấy asset value cho nó bình thường nhá mọi
+người. Hình gọi là
+
+259
+00:38:56,000 --> 00:39:02,000
+vẫn phải nhắc lại một chút trong UK Echo nếu
+như mà khi mà giao dịch ấy thì mọi
+
+260
+00:39:04,000 --> 00:39:10,000
+phải setup cho nó một cái giá trị lượng ADA
+bằng một con số. tối thiểu đấy
+
+261
+00:39:13,000 --> 00:39:19,000
+bước này chính là bước xét cho cái ut chứa
+reference token một cái lượng
+
+262
+00:39:20,000 --> 00:39:26,000
+tối thiểu này để sau đấy thì chúng ta sẽ
+truyền vào truyền vào cái
+
+263
+00:39:28,000 --> 00:39:34,000
+đồng store đấy. Đấy build transaction đấy.
+
+264
+00:39:38,000 --> 00:39:44,000
+Builder tạo builder đấy. Tiếp theo là add
+input address thì thực hiện lấy
+
+265
+00:39:46,000 --> 00:39:51,850
+UTxO trả phí này. Tiếp theo là mint asset.
+Đấy, trong bước này mới bắt đầu
+
+266
+00:39:52,000 --> 00:39:58,000
+này này. Đấy, đính cái thông tin của cái mondi
+asset này vào cái giao dịch.
+
+267
+00:40:01,000 --> 00:40:06,850
+Đấy, là đính thêm cái a minting script.
+
+268
+00:40:07,000 --> 00:40:13,000
+Rồi và thêm một cái output để chuyển cái token
+này về cái địa chỉ store.
+
+269
+00:40:18,000 --> 00:40:24,000
+Tức là bước này này. Thực ra nó là chuyển cái
+chứa reference token về địa
+
+270
+00:40:29,000 --> 00:40:35,000
+hợp đồng thông minh. Đấy. Đấy. Bước này chính
+là khởi tạo cái multi-asset.
+
+271
+00:40:42,000 --> 00:40:47,850
+tạo cái multi asset để gọi là đính nó vào cái
+UTxO và chuyển vào hợp đồng
+
+272
+00:40:48,000 --> 00:40:54,000
+minh. Đấy tương tự như vậy ừ vì là mint một
+cặp token, một cái là user token, một cái là
+reference token đúng
+
+273
+00:40:57,000 --> 00:41:03,000
+thì chúng ta cũng phải xử lý chuyển cái user
+token về thằng địa chỉ ví của thằng mint cũng
+tương tự như vậy.
+
+274
+00:41:08,000 --> 00:41:13,850
+Khởi tạo asset nàởi tạo số lượng này đấy
+
+275
+00:41:14,000 --> 00:41:20,000
+tạo multi-asset asset này đấy gọi là khởi tạo
+value.
+
+276
+00:41:22,000 --> 00:41:25,850
+Rồi add input.
+
+277
+00:41:26,000 --> 00:41:32,000
+Rồi add input chính là chuyển về địa chỉ ví
+của thằng ấy. Đấy. Tiếp theo là thêm một cái
+
+278
+00:41:35,000 --> 00:41:40,850
+size này và ví giao dịch.
+
+279
+00:41:41,000 --> 00:41:47,000
+Và tiếp theo là submit. A submit giao dịch.
+
+280
+00:41:50,000 --> 00:41:56,000
+Tiếp theo đấy là chúng ta sẽ thực hiện trả về
+thông tin giao dịch.
+
+281
+00:42:00,000 --> 00:42:06,000
+Rồi ừ mình sẽ tổng kết lại các bước chúng ta
+xây dựng giao dịch mint
+
+282
+00:42:09,000 --> 00:42:15,000
+nó cũng không khác gì ừ giao dịch mint token
+bình thường như những bài học trước mình đã
+hướng dẫn. Nhưng mà trong
+
+283
+00:42:17,000 --> 00:42:23,000
+học này nó có thêm cái tạo thêm cái datum cũng
+như là
+
+284
+00:42:25,000 --> 00:42:31,000
+sau khi mint xong thì chúng ta sẽ thực hiện ờ
+chuyển cái UTXO chứa reference
+
+285
+00:42:35,000 --> 00:42:41,000
+về địa chỉ hợp đồng thông minh và cái địa chỉ
+store đấy. Đấy, cái
+
+286
+00:42:42,000 --> 00:42:48,000
+token đấy nó sẽ đi theo cái UTXO và UTXO đó nó
+chứa cái datum để sau
+
+287
+00:42:50,000 --> 00:42:56,000
+chúng ta thực hiện chi tiêu cái datum đấy và
+cập nhật lại cái datum.
+
+288
+00:42:59,000 --> 00:43:05,000
+Ok, bước tiếp theo thì chúng ta sẽ thực hiện
+viết tiếp hàm update metadata.
+
+289
+00:43:06,000 --> 00:43:12,000
+Đấy, hàm này sẽ nhận vào các tham số đó là đầu
+tiên đó là context này,
+
+290
+00:43:15,000 --> 00:43:20,850
+hai là payment s key và payment vy. Đấy,
+
+291
+00:43:21,000 --> 00:43:27,000
+theo là cái địa chỉ của người cập nhật ấy.
+Tiếp theo là token name.
+
+292
+00:43:35,000 --> 00:43:41,000
+Tiếp theo là trường thay đổi, metadata thay
+đổi thì chúng ta là description đã định cho
+metadata nên chúng ta sẽ thay
+
+293
+00:43:43,000 --> 00:43:49,000
+cái description này. Và cuối cùng là cái đường
+dẫn đến file plutus.json
+
+294
+00:43:51,000 --> 00:43:57,000
+về disary là kết quả giao dịch.
+
+295
+00:43:59,000 --> 00:44:05,000
+Rồi thì mình sẽ thêm một chút chú thích trong
+đây.
+
+296
+00:44:10,000 --> 00:44:16,000
+Đầu tiên vẫn phải hình như là cái network này
+chúng ta không cần dùng đúng không?
+
+297
+00:44:17,000 --> 00:44:19,850
+Ok thôi.
+
+298
+00:44:20,000 --> 00:44:25,850
+Đầu tiên vẫn là L script giống các bước trước
+đó ấy. Đấy L script này mục tiêu
+
+299
+00:44:26,000 --> 00:44:31,850
+lấy ra cái store address và policy ID store
+script.
+
+300
+00:44:32,000 --> 00:44:37,850
+Tiếp theo vẫn là get cái public key để sau này
+thực hiện gọi là
+
+301
+00:44:38,000 --> 00:44:44,000
+chiếu kiểm chứng chư ký. Đấy tiếp theo đấy là
+tạo cidd.
+
+302
+00:44:46,000 --> 00:44:52,000
+Rồi bước tiếp theo vẫn là xây dựng token name
+
+303
+00:44:55,000 --> 00:45:01,000
+tạo reference asset name bằng cách nối thêm
+nối thêm cái prefix vào. Rồi sau khi đã
+
+304
+00:45:05,000 --> 00:45:11,000
+up xong là chúng ta sẽ bắt đầu tìm UTxO chứa
+reference token.
+
+305
+00:45:13,000 --> 00:45:19,000
+Đấy, vẫn dùng cái hàm gọi là context.
+
+306
+00:45:20,000 --> 00:45:26,000
+Đấy. Đấy, đầu tiên là khởi tạo reference UTXO
+bằng nă. Đấy, duyệt tất cả các UTxO.
+
+307
+00:45:32,000 --> 00:45:38,000
+Nếu ừ gọi là UTxO ờ chấm output này ch amount.
+Multi asset
+
+308
+00:45:41,000 --> 00:45:47,000
+Đấy, xong lại duyệt trong multi-asset các cái
+asset
+
+309
+00:45:51,000 --> 00:45:57,000
+cái multi-asset item đây này. Đấy, mọi người có
+thể hình dung là multi-asset asset nó trong đấy
+nó lại gồm nhiều cái asset.
+
+310
+00:46:02,000 --> 00:46:08,000
+Đấy, chính vì thế mà từ thằng cha lại đến
+thằng con.
+
+311
+00:46:10,000 --> 00:46:15,850
+Rồi tiếp theo là kiểm tra.
+
+312
+00:46:16,000 --> 00:46:22,000
+Nếu cái policy ID mà bằng cái policy ID của
+cái thằng muốn update đấy cộng với cái ref
+
+313
+00:46:25,000 --> 00:46:31,000
+đấy thì chúng ta sẽ thực hiện gán cái
+reference UTxO bằng cái UTxO đó.
+
+314
+00:46:38,000 --> 00:46:43,850
+Đấy, nếu như không có thì trả lời là không tìm
+thấy.
+
+315
+00:46:44,000 --> 00:46:50,000
+Rồi, ok. Tiếp theo thì chúng ta sẽ phải xử lý
+datum này. Xử lý datum.
+
+316
+00:46:54,000 --> 00:47:00,000
+Xử lý datum để lấy ra public public public key
+hết à. Pkhon.
+
+317
+00:47:07,000 --> 00:47:13,000
+Đấy, đầu tiên đó là từ cái reference UTxO đấy,
+chúng ta sẽ
+
+318
+00:47:14,000 --> 00:47:20,000
+ra cái datum. Đấy, nếu datum
+
+319
+00:47:21,000 --> 00:47:27,000
+thuộc kiểu thì chúng ta sẽ gán current
+
+320
+00:47:29,000 --> 00:47:35,000
+current owner đấy bằng cái
+
+321
+00:47:36,000 --> 00:47:40,850
+public key hash ừ chứa trong cái datum.
+
+322
+00:47:41,000 --> 00:47:47,000
+Còn nếu current khác public kia hết đây này
+thì nó không phải
+
+323
+00:47:56,000 --> 00:48:02,000
+Và tiếp theo thì nếu như đúng thì
+
+324
+00:48:07,000 --> 00:48:13,000
+như đúng thì cho nó cập nhật. Và rồi
+
+325
+00:48:24,000 --> 00:48:28,850
+tiếp theo là chúng ta sẽ phải khởi tạo datum
+mới.
+
+326
+00:48:29,000 --> 00:48:35,000
+Khởi tạo datum mới. Đấy. New datum này sẽ bằng
+exit 68 datum.
+
+327
+00:48:43,000 --> 00:48:49,000
+OSI ID này đấy. asset name này
+
+328
+00:48:52,000 --> 00:48:57,850
+public hết này.
+
+329
+00:48:58,000 --> 00:49:04,000
+Và metadata sẽ new description mới và version
+bằng new version.
+
+330
+00:49:06,000 --> 00:49:09,850
+Rồi ok.
+
+331
+00:49:10,000 --> 00:49:16,000
+Đấy, bước tiếp theo sau khi đã tạo datum xong
+chúng ta sẽ tạo redeem cho cái hành động này.
+Spending này. Thì hành động
+
+332
+00:49:19,000 --> 00:49:25,000
+chính là update metadata. Chúng ta sẽ tạo cái
+redeem dựa trên cái
+
+333
+00:49:27,000 --> 00:49:33,000
+nghĩa variable của cái redeem chúng ta đã khai
+báo trước đó là update metadata. Và tiếp theo
+là view transaction.
+
+334
+00:49:38,000 --> 00:49:44,000
+Đấy, view transaction khởi tạo transaction
+này. Đấy, tiếp theo là add input address.
+
+335
+00:49:47,000 --> 00:49:53,000
+Rồi tiếp theo là thực hiện gọi là add input
+script từ cái địa chỉ hiện tại.
+
+336
+00:49:59,000 --> 00:50:05,000
+Đấy. Tiếp theo đó là gửi lại cái UTXO chứa ref
+token trở lại
+
+337
+00:50:08,000 --> 00:50:14,000
+script ấy. Đấy là vẫn là khởi tạo asset đầu
+tiên này. Đấy, vẫn là
+
+338
+00:50:16,000 --> 00:50:22,000
+tạo số lượng và khởi tạo multi-asset asset này.
+Gắn nó vào multi gắn asset vào multi-asset này.
+Đấy, đính kèm một cái
+
+339
+00:50:25,000 --> 00:50:31,000
+Ada này và gửi nó về
+
+340
+00:50:33,000 --> 00:50:39,000
+chỉ store. Đấy, cuối cùng là yêu cầu ký và
+thực hiện ký giao dịch.
+
+341
+00:50:44,000 --> 00:50:48,850
+Và cuối cùng là submit.
+
+342
+00:50:49,000 --> 00:50:55,000
+Ok. Và trả về thông tin kết quả giao dịch.
+
+343
+00:50:57,000 --> 00:50:59,850
+Ok. Mình sẽ nhắc lại một lần nữa nhé.
+
+344
+00:51:00,000 --> 00:51:06,000
+hợp đồng ờ thông minh phần điều kiện để spend
+ấy tức là spending cái UTxO
+
+345
+00:51:10,000 --> 00:51:16,000
+đang chứa cái reference token mà chúng ta đã
+đang và muốn cập nhật cái metadata
+
+346
+00:51:19,000 --> 00:51:25,000
+chúng ta sẽ phải nhớ lại cái hợp đồng thông
+minh nó có ba điều kiện đầu tiên đó là phải
+được ký bởi cái thằng
+
+347
+00:51:27,000 --> 00:51:33,000
+có cái chữ ký tương ứng với cái public key
+hash được lưu trong datum của cái UTxO đó. Đấy
+thì đây chính là điều kiện
+
+348
+00:51:35,000 --> 00:51:41,000
+tiên này. Đấy điều kiện thứ hai đó là input
+phải chứa
+
+349
+00:51:42,000 --> 00:51:48,000
+reference token. Đấy thì đây chính là cái xử
+lý điều kiện đấy nhá. Đấy.
+
+350
+00:51:50,000 --> 00:51:56,000
+Và điều kiện tiếp theo đó là cái output nó
+cũng phải chứa cái reference token.
+
+351
+00:52:00,000 --> 00:52:01,850
+Thì đây chính là điều kiện thứ ba này.
+
+352
+00:52:02,000 --> 00:52:06,850
+Đấy, mọi người có thể hình dung lại. Ok chưa?
+
+353
+00:52:07,000 --> 00:52:13,000
+Ok rồi. Đấy, mình gọi là cũng đã code xong cái
+phần update metadata. Tiếp theo
+
+354
+00:52:14,000 --> 00:52:20,000
+phần bơ. Phần đơn. B này thì cũng khá là đơn
+đơn giản thôi. Định nghĩa là bơ này.
+
+355
+00:52:27,000 --> 00:52:33,000
+Tương tự như các hàm khác cũng nhận vào
+context payment s. Ừ.
+
+356
+00:52:35,000 --> 00:52:41,000
+Đấy, contact này payment s key này. Đấy, trả
+về đích này.
+
+357
+00:52:46,000 --> 00:52:47,850
+Đấy,
+
+358
+00:52:48,000 --> 00:52:51,850
+về đích thì mình sẽ chú thích một chút cái
+này.
+
+359
+00:52:52,000 --> 00:52:58,000
+Rồi tiếp theo vẫn là lấy network. Cái này hơi
+thừa thôi cứ đi. Tiếp theo vẫn là load squ.
+
+360
+00:53:01,000 --> 00:53:07,000
+Rồi tiếp theo vẫn là get on public key hết để
+đổi chiều trừ ký này. Đâu tiếp
+
+361
+00:53:08,000 --> 00:53:14,000
+vẫn là tạo asset name đấy và tạo reference và
+user token name này từ cái
+
+362
+00:53:17,000 --> 00:53:23,000
+mình vừa tạo này. Đấy khá là quên làm.
+
+363
+00:53:24,000 --> 00:53:30,000
+Và tiếp theo vẫn là tìm UTxO chứa reference
+token trên store này. Đấy dùng
+
+364
+00:53:31,000 --> 00:53:37,000
+hàm context.O đấy tại store vẫn là khởi tạo
+ref
+
+365
+00:53:40,000 --> 00:53:45,850
+nă đấy. Đấy tiếp theo là duyệt.
+
+366
+00:53:46,000 --> 00:53:52,000
+Duyệt tất cả các cái đấy xong lại duyệt tiếp
+tục duyệt trong multi-asset asset này. Đấy,
+
+367
+00:53:56,000 --> 00:54:01,850
+trong multi-asset là nếu như có tồn tại cái id
+
+368
+00:54:02,000 --> 00:54:08,000
+cái a reference asset name đấy. Đấy thì chúng
+
+369
+00:54:09,000 --> 00:54:15,000
+sẽ gán cái reference asset bằng cái UTxO đó và
+break. Nếu không thì chúng ta
+
+370
+00:54:17,000 --> 00:54:23,000
+trả về là không tìm thấy. Đấy. Tiếp theo
+
+371
+00:54:24,000 --> 00:54:29,850
+vẫn là lấy cái thông tin của public key
+header.
+
+372
+00:54:30,000 --> 00:54:34,850
+Đấy, xử lý datum này.
+
+373
+00:54:35,000 --> 00:54:41,000
+Đấy, nếu như Datum đã là kiểu CIP-68 chúng ta
+đã xây dựng thì
+
+374
+00:54:42,000 --> 00:54:48,000
+ta lấy ra cái a public key hash của này. Đấy,
+nếu như
+
+375
+00:54:51,000 --> 00:54:57,000
+key head của mà trùng với cái thằng truyền vào
+không trùng thì thông báo là nó không
+
+376
+00:55:00,000 --> 00:55:06,000
+chủ. Đấy. Và tiếp theo là tìm
+
+377
+00:55:07,000 --> 00:55:13,000
+ví của lấy lấy trong ví của này. Đấy cũng khởi
+tạo rồi. Khởi tạo xong rồi cũng duyệt qua.
+
+378
+00:55:20,000 --> 00:55:26,000
+Nói chung cũng tương tự như trên rồi. Nếu như
+không có thì thông báo
+
+379
+00:55:32,000 --> 00:55:38,000
+để giao dịch tạo giao dịch thì vẫn là những
+bước quen
+
+380
+00:55:40,000 --> 00:55:46,000
+chỉ khác là nó sẽ khởi tạo số lượng là âm
+thôi.
+
+381
+00:55:48,000 --> 00:55:53,850
+Đấy vẫn là tạo asset, vẫn là khởi tạo số
+lượng.
+
+382
+00:55:54,000 --> 00:56:00,000
+để rồi
+
+383
+00:56:06,000 --> 00:56:12,000
+gắn vào khởi tạo multi asset này sau đó gắn
+thông tin asset m này đấy
+
+384
+00:56:14,000 --> 00:56:20,000
+đó tạo redeem tạo redeem thì có hai cái chúng
+ta cần chú ý nhé
+
+385
+00:56:23,000 --> 00:56:29,000
+Như mình đã chia sẻ trong bài thực hành phần
+code hợp đồng thông minh hôm trước
+
+386
+00:56:30,000 --> 00:56:36,000
+đã nhấn mạnh là để bơ một cái token theo
+CIP-68 thì nó có hai cái công
+
+387
+00:56:37,000 --> 00:56:43,000
+Công đoạn đầu tiên đó là phải chi tiêu bỏ cái
+UTxO trong hợp đồng store đi. Đấy, sau khi chi
+tiêu xong rồi thì
+
+388
+00:56:47,000 --> 00:56:53,000
+reference token đấy nó vẫn tồn tại trên chuỗi.
+Chính vì thế mà chúng ta phải thêm một hành
+động là hành động hủy.
+
+389
+00:56:57,000 --> 00:57:02,850
+Hủy nó tức là hủy nó đi, thực hiện giao dịch,
+bơn nó. Đấy, gồm hai công đoạn.
+
+390
+00:57:03,000 --> 00:57:09,000
+Công đoạn đầu tiên là chi tiêu. Công đoạn thứ
+hai là công đoạn hủy. Đấy.
+
+391
+00:57:10,000 --> 00:57:15,850
+Vào bước build transaction này. Rồi tạo
+builder. Ứ.
+
+392
+00:57:16,000 --> 00:57:22,000
+Tiếp theo là ừ add input address để thực hiện
+có UTxO
+
+393
+00:57:24,000 --> 00:57:30,000
+phí này. Tiếp theo là add script input. Tức là
+lấy UTxO từ địa chỉ hợp
+
+394
+00:57:32,000 --> 00:57:38,000
+ra để chi tiêu này. Đấy. Tiếp theo đấy là add
+input
+
+395
+00:57:41,000 --> 00:57:47,000
+UTxO chứa user token để thực hiện lấy ra cái
+token để thực hiện hủy và tiếp
+
+396
+00:57:49,000 --> 00:57:55,000
+đấy là thực hiện gọi là đính kèm cái thông tin
+của cái tài sản multi-asset
+
+397
+00:57:57,000 --> 00:58:02,850
+vào cái giao dịch. mint đấy các mỗi giao dịch
+mint là số lượng ở đây là
+
+398
+00:58:03,000 --> 00:58:09,000
+thôi. Và cuối cùng là đính thêm cái mining
+script giống như lúc chúng ta mint
+
+399
+00:58:10,000 --> 00:58:16,000
+Đấy thêm cái redeem.
+
+400
+00:58:17,000 --> 00:58:23,000
+Ok. Tiếp theo đấy là khớp chữ ký và ký giao
+dịch.
+
+401
+00:58:25,000 --> 00:58:31,000
+Và cuối cùng là submit giao dịch.
+
+402
+00:58:33,000 --> 00:58:39,000
+Đấy, submit xong thì trả về thông tin.
+
+403
+00:58:42,000 --> 00:58:48,000
+Rồi bây giờ mình sẽ nhắc lại một số những điểm
+cốt lõi trong cái hàm B CIP-68
+
+404
+00:58:52,000 --> 00:58:58,000
+này. Thì về cái khởi tạo giao dịch khởi tạo
+token name, asset name ấy nó
+
+405
+00:58:59,000 --> 00:59:05,000
+như các cái quy trình khởi tạo trong những hàm
+mint token trước đó ấy. Đấy nó chỉ khác đó là
+
+406
+00:59:08,000 --> 00:59:14,000
+chúng ta bơ một cái token theo chuẩn CIP-68
+
+407
+00:59:15,000 --> 00:59:21,000
+sẽ có hai hành động. Hành động thứ nhất là
+hành động chúng ta phải spend
+
+408
+00:59:22,000 --> 00:59:28,000
+là chi tiêu bỏ cái UTxO đang được chứa trong
+cái hợp đồng store này đi.
+
+409
+00:59:29,000 --> 00:59:35,000
+Cái hình hành động thứ hai đó là phải hủy bỏ
+cái reference token và cái
+
+410
+00:59:38,000 --> 00:59:43,850
+token này đi. Đấy. Ok.
+
+411
+00:59:44,000 --> 00:59:50,000
+Rồi bước tiếp theo thì chúng ta cũng có thêm
+một cái hàm bổ sung để list token
+
+412
+00:59:52,000 --> 00:59:57,850
+khi cân đấy khi cần thiết đấy thì
+
+413
+00:59:58,000 --> 01:00:04,000
+ta sẽ định nghĩa hàm này hàm list token này
+thì nó sẽ nhận vào
+
+414
+01:00:06,000 --> 01:00:12,000
+vài thông tin như là context này store này.
+
+415
+01:00:13,000 --> 01:00:19,000
+user address để thực hiện list các cái token
+theo chuẩn CIP-68 ừ tương ứng với địa
+
+416
+01:00:24,000 --> 01:00:30,000
+của người và địa chỉ của hợp đồng đã được
+triển khai đầu tiên thì chúng ta sẽ định
+
+417
+01:00:31,000 --> 01:00:37,000
+các cái benefit cho các cái reference token và
+user token.
+
+418
+01:00:38,000 --> 01:00:44,000
+Đấy, tiếp theo chúng ta sẽ khai vào một cái
+user token list này và holding token name này.
+
+419
+01:00:49,000 --> 01:00:55,000
+Đấy, bước một chúng ta sẽ lấy các danh sách
+trong ví, danh sách token trong ví của user.
+Đấy.
+
+420
+01:01:05,000 --> 01:01:11,000
+Rồi for này vẫn là những cái bước khá là quen
+thuộc.
+
+421
+01:01:13,000 --> 01:01:19,000
+Duyệt multi này đấy. Duyệt từng cái item một
+đấy.
+
+422
+01:01:28,000 --> 01:01:34,000
+Dyệt từng item một này. Nếu như số lượng lớn
+0.
+
+423
+01:01:35,000 --> 01:01:41,000
+Và cái asset name của cái user token là cái
+user prefix thì chúng ta sẽ lấy phần tên sau
+của nó.
+
+424
+01:01:47,000 --> 01:01:53,000
+Nếu cái số lượng của cái asset đấy lớn hơn và
+cái tên bắt đầu bằng user prefix này
+
+425
+01:01:56,000 --> 01:02:01,850
+Đấy thì chúng ta sẽ lấy phần tên sau prefix.
+
+426
+01:02:02,000 --> 01:02:08,000
+Đấy. B names đấy. Phần tên sau.
+
+427
+01:02:11,000 --> 01:02:17,000
+Rồi và thực hiện thêm cái B name này vào đấy.
+
+428
+01:02:23,000 --> 01:02:29,000
+Và in ra.
+
+429
+01:02:33,000 --> 01:02:39,000
+Cái này không không cần đi bớ đâu. Cứ hiển thị
+ra cho rồi. Tiếp theo đấy là tìm reference
+token
+
+430
+01:02:43,000 --> 01:02:49,000
+ứng trong store cũng duyệt các UO của store
+đấy. for
+
+431
+01:02:51,000 --> 01:02:57,000
+cũng fory id duyệt các cái multi asset trong
+cái
+
+432
+01:02:59,000 --> 01:03:04,850
+đấy duyệt trong multip asset
+
+433
+01:03:05,000 --> 01:03:11,000
+nếu asset nameb chref prefix này đấy
+
+434
+01:03:13,000 --> 01:03:19,000
+lấy phần sau đấy Mà nếu
+
+435
+01:03:20,000 --> 01:03:26,000
+Bay name này mà có trong cái reference token
+
+436
+01:03:29,000 --> 01:03:35,000
+chúng ta sẽ thực hiện lấy ra một số thông tin
+giải mã datum
+
+437
+01:03:38,000 --> 01:03:44,000
+roda đaat
+
+438
+01:03:47,000 --> 01:03:53,000
+chấm atum này if
+
+439
+01:04:02,000 --> 01:04:08,000
+ra datum thuộc kiểu thì chúng ta sẽ chuyển về
+dạng
+
+440
+01:04:09,000 --> 01:04:15,000
+không thì nguyên
+
+441
+01:04:21,000 --> 01:04:27,000
+Và cuối cùng là trả về thông tin metadata deck
+này.
+
+442
+01:04:36,000 --> 01:04:42,000
+Đấy duyệt tất cả các trường trong metata.
+Metadata nếu như metad đích đấy
+
+443
+01:04:47,000 --> 01:04:53,000
+bằng đấy.
+
+444
+01:04:57,000 --> 01:05:03,000
+Value cũng vậy rồi.
+
+445
+01:05:04,000 --> 01:05:10,000
+Metadata ừ gãn metadata
+
+446
+01:05:12,000 --> 01:05:18,000
+dictionary bằng một giá trị và user token
+listen
+
+447
+01:05:29,000 --> 01:05:35,000
+Aspend token name
+
+448
+01:05:43,000 --> 01:05:49,000
+đấy. Tiếp theo là policy ID đấy.
+
+449
+01:05:55,000 --> 01:06:01,000
+Chblot.Hh. Tiếp theo đó là metadata.
+
+450
+01:06:08,000 --> 01:06:12,850
+Tiếp theo đó là version. Th lấy từ datum.
+Version.
+
+451
+01:06:13,000 --> 01:06:19,000
+Đấy. Và cuối cùng là hết rồi.
+
+452
+01:06:20,000 --> 01:06:26,000
+Ok. Và except thật trai đây.
+
+453
+01:06:34,000 --> 01:06:40,000
+Và cuối cùng là return user token list.
+
+454
+01:06:45,000 --> 01:06:48,850
+Ok,
+
+455
+01:06:49,000 --> 01:06:55,000
+cùng thì viết thêm một số cái hàm test trong
+đây.
+
+456
+01:06:57,000 --> 01:07:03,000
+Rồi ok. Như vậy là chúng ta đã xong ờ một số
+các hàm khá là quan trọng trong
+
+457
+01:07:07,000 --> 01:07:13,000
+quá trình chúng ta thực hiện code off-chain.
+
+458
+01:07:16,000 --> 01:07:22,000
+Bước tiếp theo thì chúng ta sẽ viết các script
+đấy. Gọi đến các cái hàm này.
+
+459
+01:07:26,000 --> 01:07:31,850
+Nhưng mà đầu tiên thì chúng ta phải init init
+trước khởi tạo trước.
+
+460
+01:07:32,000 --> 01:07:38,000
+Ừ. viết viết cái hàm tổng hợp lại
+
+461
+01:07:40,000 --> 01:07:46,000
+nó sẽ lấy ra từ các hàm trong
+
+462
+01:07:49,000 --> 01:07:55,000
+hai cái file chúng ta vừa code ấy. Đấy. Import
+này.
+
+463
+01:07:57,000 --> 01:08:03,000
+From shift đây. Rồi. Ồ,
+
+464
+01:08:06,000 --> 01:08:12,000
+này như là khai báo ấy cũng khá quan trọng.
+Rồi ok.
+
+465
+01:08:14,000 --> 01:08:20,000
+Tiếp theo thì chúng ta sẽ tạo ờ tạo một vài
+cái file
+
+466
+01:08:21,000 --> 01:08:27,000
+để chạy thử. Đấy, file đầu tiên đó là file
+mint. Ừ.
+
+467
+01:08:29,000 --> 01:08:31,850
+Demo mint đi.
+
+468
+01:08:32,000 --> 01:08:38,000
+Demo mint. file đấy.
+
+469
+01:08:49,000 --> 01:08:55,000
+Trong file này chúng ta sẽ thực hiện gọi là
+mint ờ
+
+470
+01:08:59,000 --> 01:09:05,000
+Đầu tiên vẫn là import cái thư viện. Rồi tiếp
+theo là import do ENV này. Đấy.
+
+471
+01:09:09,000 --> 01:09:15,000
+Tiếp theo là ờ import một số cái hàm dùng cho
+mint.
+
+472
+01:09:16,000 --> 01:09:22,000
+Đấy. Và đầu tiên vẫn là load. ENV. Tiếp theo
+là khai báo hàm main.
+
+473
+01:09:26,000 --> 01:09:32,000
+Ma main nà in. một số các cái văn bản trình
+bày.
+
+474
+01:09:33,000 --> 01:09:39,000
+Đấy, tiếp theo là load Walid.
+
+475
+01:09:40,000 --> 01:09:46,000
+Đầu tiên là Lad Wall ừ load biến SH face này.
+Đấy, nếu không có thì th in thông tin ra.
+
+476
+01:09:50,000 --> 01:09:56,000
+Đấy. Tiếp theo thì chúng ta sẽ lấy các thông
+tin của Wallist bằng cái hàm get
+
+477
+01:09:57,000 --> 01:10:03,000
+from sheet ấy. Đấy, lấy được thì print ra. Ok.
+
+478
+01:10:04,000 --> 01:10:10,000
+Tiếp theo thì chúng ta sẽ phải tạo context
+này.
+
+479
+01:10:11,000 --> 01:10:17,000
+Rồi tiếp theo thì chúng ta sẽ qu một số thông
+tin của ví để ví dụ
+
+480
+01:10:20,000 --> 01:10:26,000
+số dư chẳng hạn. Đấy.
+
+481
+01:10:27,000 --> 01:10:33,000
+Đấy. Nếu như tiền nhỏ hơn 10 thì print là
+không đủ.
+
+482
+01:10:38,000 --> 01:10:44,000
+Rồi tiếp theo thì chúng ta sẽ có một cái biến
+là biến time stam
+
+483
+01:10:47,000 --> 01:10:53,000
+mỗi một lần mint thì chúng ta sẽ đính kèm cái
+time stame đấy vào. Đấy. Đấy.
+
+484
+01:10:56,000 --> 01:11:02,000
+Tên token này đếnh kèm t này đỡ phải thêm một
+cái trường gọi là trường description.
+
+485
+01:11:04,000 --> 01:11:07,850
+Đấy,
+
+486
+01:11:08,000 --> 01:11:13,850
+Sau đó thì chúng ta sẽ in cái thông tin ra.
+
+487
+01:11:14,000 --> 01:11:20,000
+Đấy. Rồi đây bắt đầu vào bước gọi hàm mint
+này. Đấy. Đây kiểu như là setup
+
+488
+01:11:21,000 --> 01:11:27,000
+tin để mint thôi. Đấy. Gọi hàm mint rest run
+mint CIP-68 token này.
+
+489
+01:11:35,000 --> 01:11:41,000
+Gồm có các cái tham số như là context, payment
+s key đấy.
+
+490
+01:11:42,000 --> 01:11:47,850
+Payment Sky, payment V key này, address này,
+
+491
+01:11:48,000 --> 01:11:53,850
+name và description. Đấy, tiếp theo là in
+
+492
+01:11:54,000 --> 01:12:00,000
+một số thông tin giao dịch thành công hay
+không. Đấy.
+
+493
+01:12:01,000 --> 01:12:07,000
+Rồi là thêm một cái công đoạn đấy là lưu lưu
+
+494
+01:12:09,000 --> 01:12:13,850
+thông tin của token vào đấy.
+
+495
+01:12:14,000 --> 01:12:20,000
+Mở cái một lưu vào file chơ. Đấy. Mở cái file
+chas ra.
+
+496
+01:12:23,000 --> 01:12:29,000
+Chayson.
+
+497
+01:12:32,000 --> 01:12:37,850
+Đấy, trước khi đi vào bước tiếp theo, mình
+muốn bổ sung
+
+498
+01:12:38,000 --> 01:12:44,000
+một câu lệnh đó là thêm một cái a đường dẫn
+của dự án.
+
+499
+01:12:48,000 --> 01:12:54,000
+Đây tức là thiết lập ừ cái project rot của cái
+dự án này chính là cái thư mục hiện tại. Đấy.
+
+500
+01:13:03,000 --> 01:13:09,000
+Rồi tiếp theo chúng ta sẽ exception đúng không
+nhở?
+
+501
+01:13:15,000 --> 01:13:21,000
+Tab à nào? Ok. Và tiếp theo là kết thúc hàm.
+
+502
+01:13:25,000 --> 01:13:31,000
+Rồi chúng ta đã viết xong cái script để demo.
+Tí nữa chúng ta sẽ chạy một thể.
+
+503
+01:13:35,000 --> 01:13:41,000
+Tiếp theo thì đó là viết thêm một cái script
+khác là demo update.
+
+504
+01:13:44,000 --> 01:13:50,000
+Đấy.
+
+505
+01:13:55,000 --> 01:14:01,000
+Trong file này mục đích của nó cũng
+
+506
+01:14:04,000 --> 01:14:10,000
+để update cái trường metadata. Đấy cũng import
+các thư viện cũng phải add project rot đấy.
+
+507
+01:14:14,000 --> 01:14:20,000
+Cũng phải import các cái hàm phục vụ cho
+update. Đấy cũng phải load đv này đấy.
+
+508
+01:14:23,000 --> 01:14:29,000
+Khai báo hàm main và in ra.
+
+509
+01:14:33,000 --> 01:14:39,000
+Tiếp theo đó là l wall. Tương tự như mint
+thôi.
+
+510
+01:14:45,000 --> 01:14:51,000
+Rồi tiếp theo thì cũng lấy các cái a script ừ
+à lấy các cái thông tin liên quan đến ví.
+
+511
+01:15:03,000 --> 01:15:09,000
+Rồi tiếp theo đó là lấy một số cái script cần
+thiết này. Lấy dùng hàm get script ấy không có
+tham số gì cũng được.
+
+512
+01:15:14,000 --> 01:15:15,850
+Đấy,
+
+513
+01:15:16,000 --> 01:15:22,000
+ra cái địa chỉ ví và địa chỉ của store. Đấy,
+
+514
+01:15:25,000 --> 01:15:31,000
+chúng ta ở đây chúng ta cần một cái id bằng
+
+515
+01:15:34,000 --> 01:15:37,850
+này thì chúng ta sẽ thay thế sau đấy.
+
+516
+01:15:38,000 --> 01:15:44,000
+sau khi có token NFT mint nhá.
+
+517
+01:15:56,000 --> 01:16:02,000
+Rồi đấy. Print cái poosin này ra. Đấy cũng
+phải khởi tạo context.
+
+518
+01:16:06,000 --> 01:16:12,000
+Đấy thì trong cái update này nó sẽ có thêm một
+cái công đoạn đó là chúng ta sẽ
+
+519
+01:16:14,000 --> 01:16:20,000
+các cái token mà chúng ta đang sở hữu theo
+chuẩn CIP-68 ấy. Đấy
+
+520
+01:16:28,000 --> 01:16:34,000
+token mang list o token đấy. Nếu như không tìm
+thấy thì thông báo,
+
+521
+01:16:38,000 --> 01:16:44,000
+nếu như tìm thấy rồi tiếp theo đấy là duyệt
+với cái danh sách token đấy nhá.
+
+522
+01:16:52,000 --> 01:16:58,000
+ra đấy. Thông tin như là token name nà,
+version này,
+
+523
+01:17:00,000 --> 01:17:03,850
+Đấy,
+
+524
+01:17:04,000 --> 01:17:10,000
+theo chúng ta sẽ gọi là khi chúng ta thực hiện
+ừ update thì chúng ta sẽ tạo ra một cái select
+ấy. Ừ. Đấy,
+
+525
+01:17:16,000 --> 01:17:22,000
+xin nhắc lại một lần nữa nhé. Vì là trong cái
+ví dụ của chúng ta hợp đồng thông minh không
+có các parameter nên
+
+526
+01:17:25,000 --> 01:17:31,000
+được tạo ra từ cáiinting script ấy nó sẽ là
+một cái policy ID cố định. Đấy nên khi
+
+527
+01:17:34,000 --> 01:17:40,000
+ta mint thì nó sẽ mint nhiều cái token với po
+ID giống nhau nhưng cái
+
+528
+01:17:43,000 --> 01:17:49,000
+name là khác nhau. Đấy nên khi chúng ta sẽ
+quét các cái
+
+529
+01:17:51,000 --> 01:17:56,850
+token trong ví ấ chúng ta sẽ có nhiều cái
+token theo chuẩn CIP-68.
+
+530
+01:17:57,000 --> 01:18:03,000
+Đấy thì khi chúng ta quét ra chúng ta sẽ lựa
+chọn một trong số các cái token
+
+531
+01:18:04,000 --> 01:18:10,000
+ta quét để chúng ta update. Đấy nếu như token
+số lượng token bằng 1 thì tự chọn luôn.
+
+532
+01:18:16,000 --> 01:18:22,000
+Còn nếu như số lượng token lớn hơn 1 đấy thì
+chúng ta sẽ dùng một cái hàm nhập
+
+533
+01:18:27,000 --> 01:18:33,000
+input chọn token này. Đấy choice xử lý
+
+534
+01:18:37,000 --> 01:18:43,000
+và except rồi đấy. Chúng ta đã chọn xong token
+rồi
+
+535
+01:18:46,000 --> 01:18:50,850
+không? Đây token name. Đấy.
+
+536
+01:18:51,000 --> 01:18:57,000
+Lấy cái token name ra và thêm một cái a trường
+metadata muốn cập nhật ở cụ thể ở
+
+537
+01:19:01,000 --> 01:19:07,000
+là new description. Đấy thì chúng ta sẽ đính
+cho nó một cái file, một cái thời gian đấy.
+Thay cho nó cái
+
+538
+01:19:09,000 --> 01:19:15,000
+đây này. Thành cái update metadata. Cái cũ là
+
+539
+01:19:17,000 --> 01:19:23,000
+cái cũ đâu nhở? Demo CIP-68 này này. Đấy cái
+mới là update. Đấy.
+
+540
+01:19:25,000 --> 01:19:31,000
+Rồi tiếp theo là in thông tin ra.
+
+541
+01:19:33,000 --> 01:19:39,000
+rồi và tiếp theo là bước gọi đến hàm update
+metadata này truyền các cái thông
+
+542
+01:19:40,000 --> 01:19:46,000
+vào đấy
+
+543
+01:19:48,000 --> 01:19:54,000
+truyền thông số vào nhá context này key v key
+này đấy on address này.
+
+544
+01:20:03,000 --> 01:20:09,000
+Rồi tiếp theo là in các cái thông tin ra và
+except.
+
+545
+01:20:15,000 --> 01:20:21,000
+Rồi cuối cùng là Ok.
+
+546
+01:20:22,000 --> 01:20:28,000
+Như vậy thì trong cái script này mình chỉ có
+một cái điểm lưu ý đó là chúng ta sẽ query
+trong ví của user xem là user
+
+547
+01:20:31,000 --> 01:20:37,000
+thay đổi metadata của cái token nào. Đấy, chỉ
+có điểm mới như vậy thôi.
+
+548
+01:20:39,000 --> 01:20:45,000
+Đấy, sau khi chúng ta lựa chọn xong cái token
+muốn thay đổi ấy thì chúng ta sẽ truyền cái
+new description này vào cái hàm update
+metadata. Đấy.
+
+549
+01:20:52,000 --> 01:20:58,000
+Rồi tiếp theo thì chúng ta sẽ thực hiện viết
+hàm demob.
+
+550
+01:21:04,000 --> 01:21:10,000
+Đấy.
+
+551
+01:21:19,000 --> 01:21:22,850
+Đầu tiên vẫn phải import cái thư viện,
+
+552
+01:21:23,000 --> 01:21:29,000
+phải định nghĩa root của project này. Post các
+cái hàm để bơ này. Đấy. Load.netv
+
+553
+01:21:33,000 --> 01:21:37,850
+khá là giống các bước cũ nên mình sẽ làm nhanh
+luôn nhá.
+
+554
+01:21:38,000 --> 01:21:44,000
+Định nghĩa main này cũng in ra này. Đấy không
+khác gì mint với update. Đây tiếp
+
+555
+01:21:46,000 --> 01:21:52,000
+là load seed phrase này. Đấy lấy các cái
+trường liên quan đến ví này.
+
+556
+01:21:54,000 --> 01:22:00,000
+Rồi tiếp theo là lấy các cái script để thực
+hiện có cái địa chỉ như để list token tiếp
+theo là in ra. Đấy,
+
+557
+01:22:06,000 --> 01:22:12,000
+bước này cũng phải chuẩn bị một cái policy ID của
+cái token cần
+
+558
+01:22:15,000 --> 01:22:21,000
+đã minấy sau khi chúng ta mint xong thì chúng
+ta sẽ thực hiện thao tác với cái policy ID
+hoặc token đấy. Rồi khởi tạo
+
+559
+01:22:24,000 --> 01:22:30,000
+này. Đấy, vẫn là lead token này.
+
+560
+01:22:31,000 --> 01:22:37,000
+Rồi, vẫn là nếu không tồn tại token thì thông
+báo ra.
+
+561
+01:22:40,000 --> 01:22:46,000
+Và nếu như tìm thấy thì hiển thị.
+
+562
+01:22:50,000 --> 01:22:56,000
+Rồi tiếp theo là chọn lựa chọn cái token bn
+này giống hệt như update thôi. Đấy nếu
+
+563
+01:22:59,000 --> 01:23:05,000
+land token bằng 1 thì select luôn cái token ở
+vị trí là 0 luôn.
+
+564
+01:23:08,000 --> 01:23:14,000
+Rồi cho thêm một cái trường nhập confirm vào
+
+565
+01:23:15,000 --> 01:23:20,850
+muốn bơ không ấy. Đấy
+
+566
+01:23:21,000 --> 01:23:27,000
+lý thêm một cái đã hủy
+
+567
+01:23:32,000 --> 01:23:38,000
+Nếu như có nhiều nhiều token thì tiếp tục gán
+cái select à tìm cho một
+
+568
+01:23:41,000 --> 01:23:47,000
+input để lựa chọn này. Đấy, xong lại tiếp tục
+lựa chọn try này. Lại except nào.
+
+569
+01:23:51,000 --> 01:23:56,850
+Rồi gán cái token name.
+
+570
+01:23:57,000 --> 01:24:03,000
+Tiếp theo là in ra và cuối cùng là thực thi bơ
+gọi đến hàm bn này.
+
+571
+01:24:09,000 --> 01:24:15,000
+Isan này.
+
+572
+01:24:21,000 --> 01:24:27,000
+Và cuối cùng là in ra thông tin giao dịch.
+Đấy. Except.
+
+573
+01:24:34,000 --> 01:24:40,000
+Rồi như vậy là chúng ta đã viết xong hàm
+
+574
+01:24:42,000 --> 01:24:45,800
+rồi. Chúng ta đã viết xong ba cái script.
+
+

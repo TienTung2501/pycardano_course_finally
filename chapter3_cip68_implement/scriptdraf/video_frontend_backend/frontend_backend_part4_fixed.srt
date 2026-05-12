@@ -1,0 +1,275 @@
+﻿1
+00:00:00,000 --> 00:00:03,850
+Ok.
+
+2
+00:00:04,000 --> 00:00:10,000
+Sau khi chúng ta đã code xong frontend rồi thì
+mình sẽ thực hiện demo ngay trên giao diện
+luôn.
+
+3
+00:00:12,000 --> 00:00:16,850
+Đầu tiên thì chúng ta sẽ test thử tính năng
+mint xem nào.
+
+4
+00:00:17,000 --> 00:00:23,000
+Demo demo mint ờ 1102 này.
+
+5
+00:00:26,000 --> 00:00:32,000
+Demo minấy mint submit giao dịch.
+
+6
+00:00:38,000 --> 00:00:44,000
+Ok. Đợi ký giao dịch. Confirm.
+
+7
+00:00:46,000 --> 00:00:48,850
+Confirm.
+
+8
+00:00:49,000 --> 00:00:55,000
+Đấy, giao dịch đã được mint thành công rồi.
+Chúng ta sẽ đợi để nó submit lên blockchain và
+nó sẽ cập nhật lại danh
+
+9
+00:00:58,000 --> 00:01:04,000
+cái cái các cái CIP-68 NFT của chúng ta. Chúng
+ta sẽ đợi.
+
+10
+00:01:07,000 --> 00:01:08,850
+Đấy,
+
+11
+00:01:09,000 --> 00:01:15,000
+diện cũng mình cũng chỉ thiết kế cái giao diện
+làm sao đủ dùng thôi.
+
+12
+00:01:36,000 --> 00:01:37,200
+Ok.
+
+13
+00:01:37,000 --> 00:01:43,000
+Ờ như vậy là ừ giao diện của chúng ta đã cập
+nhật thêm cái
+
+14
+00:01:45,000 --> 00:01:50,850
+mới rồi này. Mọi người có thể nhìn thấy nhá.
+Demo mint này version 1 nhá.
+
+15
+00:01:51,000 --> 00:01:57,000
+Đấy. Bây giờ chúng ta sẽ thử tính năng update
+metadata xem nào. Update metadata đấy.
+
+16
+00:01:59,000 --> 00:02:05,000
+Thử V2 đi. Cập nhật.
+
+17
+00:02:14,000 --> 00:02:20,000
+Confirm cái giao dịch. Confirm.
+
+18
+00:02:21,000 --> 00:02:27,000
+Ok. Xem nào. Thành công. Metadata đã được cập
+nhật. Chúng ta sẽ đợi để nó cập nhật xem nào.
+
+19
+00:02:58,000 --> 00:03:04,000
+Check trên Cardano Scan xem vẫn chưa có
+
+20
+00:03:25,000 --> 00:03:27,850
+chúng ta làm mới lại xem nào.
+
+21
+00:03:28,000 --> 00:03:34,000
+chuyển sang Version 2. Ok chưa? Rồi bây giờ
+chúng ta sẽ test tính năng bơ
+
+22
+00:03:35,000 --> 00:03:41,000
+B đây. Tôi đồng ý muốn xóa này. Xóa NFT này.
+Đợi và ký giao dịch thôi.
+
+23
+00:03:57,000 --> 00:03:59,850
+Rồi xem nào.
+
+24
+00:04:00,000 --> 00:04:06,000
+NFT đã được bơn. Ok. Chúng ta sẽ đợi một lúc.
+để giao dịch được submit lên on
+
+25
+00:04:24,000 --> 00:04:30,000
+đợi thì mình sẽ mở lại cái slide để Ừ,
+
+26
+00:04:35,000 --> 00:04:41,000
+lại cái slide để trình bày lại cho mọi người
+tổng kết lại cái bài học về chuẩn CIP-68 của
+chúng ta.
+
+27
+00:04:46,000 --> 00:04:52,000
+Đấy, làm mới xem nào. Ok,
+
+28
+00:04:57,000 --> 00:05:03,000
+bơn thành công rồi. Chúng ta xem lại trên
+Cardano Scan xem.
+
+29
+00:05:04,000 --> 00:05:10,000
+Ok, như vậy là giao dịch đã được bơn thành
+công là số lượng đã thành -1 này.
+
+30
+00:05:11,000 --> 00:05:17,000
+Đấy. Rồi bây giờ mình sẽ
+
+31
+00:05:18,000 --> 00:05:24,000
+kết lại một chút về cái bài học của chúng ta
+trong cái chuỗi ờ ví dụ thực tế
+
+32
+00:05:28,000 --> 00:05:34,000
+triển khai ờ toàn bộ một cái quy trình ờ chuẩn
+CIP-68 Dynamic Access
+
+33
+00:05:37,000 --> 00:05:43,000
+NFT trên Cardano nó như thế nào rồi như vậy
+thì trong Cái chuỗi video mà mình
+
+34
+00:05:44,000 --> 00:05:49,850
+hướng dẫn về cái CIP-68 này thì mọi người cũng
+đã hiểu được về cơ chế
+
+35
+00:05:50,000 --> 00:05:56,000
+động của CIP-68. Đấy, mục đích của nó sinh ra
+là giải quyết cái vấn đề
+
+36
+00:05:57,000 --> 00:06:03,000
+là nếu như chúng ta gắn metadata kèm theo cái
+transaction khi chúng ta thực
+
+37
+00:06:04,000 --> 00:06:10,000
+giao dịch mint các cái token hoặc là access
+trên hệ sinh thái thì nó sẽ tạo
+
+38
+00:06:11,000 --> 00:06:17,000
+một cái hạn chế đó là metadata đấy không thể
+cập nhật được. Đấy, cái CIP-68 nó được sinh ra
+nhằm khắc phục cái
+
+39
+00:06:20,000 --> 00:06:26,000
+đề đó. Đấy giúp chúng ta có thể update
+metadata một cách dễ dàng hơn thông qua cái cơ
+chế đó là mint một cặp
+
+40
+00:06:29,000 --> 00:06:35,000
+đấy một token là user token được
+
+41
+00:06:38,000 --> 00:06:43,850
+về ví của chúng ta còn một token gọi là
+reference token ứ token đó sẽ
+
+42
+00:06:44,000 --> 00:06:50,000
+metadata được lưu trong datum đấy và chúng ta
+có thể cập cập nhật metadata
+
+43
+00:06:52,000 --> 00:06:58,000
+qua cách cập nhật datum và ờ cập nhật datum
+trong tế cô chứa ref
+
+44
+00:06:59,000 --> 00:07:05,000
+đấy và trong cái chuỗi video hướng dẫn thì
+mình cũng đã ừ mô tả hướng dẫn
+
+45
+00:07:09,000 --> 00:07:15,000
+hành chi tiết về quy trình triển khai một cái
+ví dụ thực tế bao gồm đầu tiên đó là triển
+khai hợp đồng thông
+
+46
+00:07:18,000 --> 00:07:24,000
+này đấy mình cũng đã ờ chia sẻ khá là chi tiết
+trong cái logic thiết kế hợp đồng thông minh
+như
+
+47
+00:07:27,000 --> 00:07:33,000
+nào, thiết kế datum hay là thiết kế redeemer
+như thế nào. Rồi thứ hai đó là thực hiện code
+off trên để tương tác với
+
+48
+00:07:36,000 --> 00:07:40,850
+đồng thông minh bao gồm các tính năng như mint
+này, update metadata và burn.
+
+49
+00:07:41,000 --> 00:07:47,000
+Đấy và cuối cùng là video lần này video khá là
+dài đó là xây dựng một ứng dụng
+
+50
+00:07:49,000 --> 00:07:55,000
+stack de app đấy có giao diện đấy mọi người có
+thể mint update và burn cái
+
+51
+00:07:57,000 --> 00:08:03,000
+CIP-68 này trên giao diện đấy như vậy thì
+trong chuỗi video vừa rồi thì mình cũng đã
+chia sẻ cho các bạn khá
+
+52
+00:08:05,000 --> 00:08:11,000
+chi tiết mong rằng cái những cái hiểu biết
+những cái thực hành về cái chuẩn
+
+53
+00:08:13,000 --> 00:08:19,000
+CIP-68 này nó sẽ mang lại cho các bạn nhiều
+kiến thức bổ ích. Sau này các bạn ờ sẽ bước
+vào quy trình xây dựng các ứng
+
+54
+00:08:21,000 --> 00:08:27,000
+thực tế trên Cardano và áp dụng các cái chuẩn
+CIP-68 này. Thì mình rất
+
+55
+00:08:29,000 --> 00:08:33,850
+ơn mọi người đã theo dõi các video giảng dạy
+của bọn mình.
+
+56
+00:08:34,000 --> 00:08:37,800
+Về thời lượng thì nó khá là dài rồi nên mình
+cũng xin phép kết thúc video tại đây. Mình xin
+cảm ơn mọi người và mình xin chào mọi người.
+

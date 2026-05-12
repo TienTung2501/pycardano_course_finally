@@ -1,0 +1,1779 @@
+﻿1
+00:00:03,000 --> 00:00:09,000
+Ok, sau khi backend đã code và chạy thành công
+rồi, bây giờ thì chúng ta sẽ thực hiện code
+frontend.
+
+2
+00:00:12,000 --> 00:00:17,850
+Đấy thì như mình đã giới thiệu thì frontend
+
+3
+00:00:18,000 --> 00:00:24,000
+ta sẽ dùng ờ thư viện là next JSJ Code và sử
+dụng chuẩn CIP-30 để thực
+
+4
+00:00:27,000 --> 00:00:33,000
+các cái thao tác của ví đấy để ký giao dịch và
+kết nối ví trên trình duyệt.
+
+5
+00:00:37,000 --> 00:00:41,850
+Đấy, chúng ta sẽ tạo một cái terminal mới để
+cái con backend nó vẫn chạy đấy.
+
+6
+00:00:42,000 --> 00:00:48,000
+Ừ. CD vào CIP-68 rồi
+
+7
+00:00:58,000 --> 00:01:04,000
+thì mình sẽ bắt đầu vì là
+
+8
+00:01:06,000 --> 00:01:12,000
+trình code frontend nếu như chúng ta thực hiện
+code cả giao diện ấy nó khá là tốn thời gian.
+Chính vì thế mà mình đã
+
+9
+00:01:14,000 --> 00:01:20,000
+ra một cái template giao diện frontend phục vụ
+chúng ta. Đấy,
+
+10
+00:01:21,000 --> 00:01:23,850
+đấy chưa có code logic hay gì,
+
+11
+00:01:24,000 --> 00:01:30,000
+có các cái dịch vụ như là ờ build trí giao
+dịch hay là viết cái hàm
+
+12
+00:01:34,000 --> 00:01:40,000
+lý thu thập dữ liệu. Đấy, chính vì thế mà mình
+cũng đã tạo ra một cái template đã có giao
+diện rồi và chúng ta
+
+13
+00:01:42,000 --> 00:01:48,000
+việc vào đó và code thôi. Mọi người có thể lấy
+cái link này và clone cái template đấy về nhá.
+
+14
+00:01:52,000 --> 00:01:58,000
+Git clone rồi tạ clone về.
+
+15
+00:01:59,000 --> 00:02:05,000
+Ứ khi clone về chúng ta vào CD template
+frontend và chạy
+
+16
+00:02:10,000 --> 00:02:16,000
+install npm install để thực hiện install các
+cái thư viện cho frontend.
+
+17
+00:02:23,000 --> 00:02:29,000
+Thì trong cái file backkit. này này mình đã
+khai báo khá là đầy đủ những cái thư viện cần
+thiết.
+
+18
+00:02:33,000 --> 00:02:39,000
+Đấy mọi người chỉ việc chạy cái file chạy cái
+câu lệnh npm install sẽ tự động
+
+19
+00:02:40,000 --> 00:02:46,000
+các cái thư viện trong của dự án về đấy. Đấy.
+
+20
+00:03:18,000 --> 00:03:24,000
+Ok, như vậy là chúng ta đã cài xong các cái
+thư viện rồi. Bây giờ chúng ta sẽ chạy thử dự
+án và kiểm tra trên trình duyệt xem nào.
+
+21
+00:03:29,000 --> 00:03:35,000
+Dùng câu lệnh npm run dev.
+
+22
+00:03:52,000 --> 00:03:58,000
+Rồi xem trên duyệt xem có chưa. Ah.
+
+23
+00:04:35,000 --> 00:04:41,000
+Ok, chúng ta đã có giao diện rồi. Ờ tuy nhiên
+thì giao diện này thì mới chỉ là giao diện
+tĩnh thôi. Nó chỉ là một cái
+
+24
+00:04:42,000 --> 00:04:48,000
+thôi. Đấy. Ờ để mà có giao diện chuẩn ấy,
+chúng ta sẽ phải thực hiện viết các cái logic.
+Ví dụ như là tích
+
+25
+00:04:52,000 --> 00:04:58,000
+ví này. Sau khi tích hợp ví và connect ví xong
+sẽ cho ra một cái giao diện cho người dùng,
+giao diện client
+
+26
+00:04:59,000 --> 00:05:05,000
+người dùng. Đấy, còn đây là giao diện dành cho
+những cái đối tượng vào mà chưa connect ví.
+Đấy, bây giờ chúng ta sẽ quay lại xuộc code
+của dự án này.
+
+27
+00:05:22,000 --> 00:05:25,850
+Chúng ta sẽ xem lại cái giao diện nó có những
+cái gì nào.
+
+28
+00:05:26,000 --> 00:05:32,000
+Đấy. Đấy, có các thư mục như là thư mục
+application này. Đấy, trong đấy có các định
+nghĩa layout.
+
+29
+00:05:35,000 --> 00:05:40,850
+Đấy, có B đấy, có home content.
+
+30
+00:05:41,000 --> 00:05:47,000
+Đấy, thì trong cái template này thì mình cũng
+đã soạn sẵn những cái
+
+31
+00:05:49,000 --> 00:05:55,000
+to do để mọi người có thể hiểu được những cái
+bước mình sẽ thực hiện code logic. Đấy.
+
+32
+00:06:00,000 --> 00:06:06,000
+Đấy. Layout này. Component thì có các cái moda
+để bơ này, mint form này, moda để kế thừa đến
+các moda nhỏ.
+
+33
+00:06:14,000 --> 00:06:19,850
+Đấy, list các này, các cái provider đấy.
+
+34
+00:06:20,000 --> 00:06:26,000
+transaction status để hiển thị thông tin giao
+dịch có thành công hay không.
+
+35
+00:06:27,000 --> 00:06:30,850
+form gọi là để update metadata này.
+
+36
+00:06:31,000 --> 00:06:37,000
+Trong đây thì cũng có các cái chú tích to do
+để hướng dẫn viết logic code này.
+
+37
+00:06:38,000 --> 00:06:44,000
+Ừ đã có component wallet connect để thực hiện
+tích hợp wallet integration với ứng
+
+38
+00:06:47,000 --> 00:06:53,000
+này context để thực hiện truyền dữ liệu của
+wallet trong cả ứng dụng này.
+
+39
+00:06:55,000 --> 00:07:01,000
+Đấy, tai là dùng gọi là đây là định nghĩa
+wallet API theo chuẩn CIP-30 dùng cho các dự
+án này.
+
+40
+00:07:07,000 --> 00:07:13,000
+Đấy, bây giờ thì mình sẽ đi sâu vào code luôn.
+
+41
+00:07:14,000 --> 00:07:20,000
+Đấy, bước đầu tiên chúng ta sẽ thực hiện bước
+valid integration.
+
+42
+00:07:21,000 --> 00:07:24,850
+Đầu tiên đó là vào file ừ.
+
+43
+00:07:25,000 --> 00:07:31,000
+Chúng ta sẽ vào hoàn thiện cái wallet context
+để thực hiện truyền cái các cái thông tin liên
+quan đến wallet trong
+
+44
+00:07:34,000 --> 00:07:40,000
+bộ các cái trang của ừ giao diện của người
+dùng. Đấy thì ở đây thì mình cũng đã khởi tạo
+sẵn những cái state.
+
+45
+00:07:46,000 --> 00:07:52,000
+Đấy. Tuy nhiên thì những cái logic như là lấy
+các cái thông tin như là kiểm tra
+
+46
+00:07:53,000 --> 00:07:59,000
+trình duyệt có cái ví đã cài extension ví trên
+trình duyệt
+
+47
+00:08:01,000 --> 00:08:06,850
+chưa này. Thứ hai đó là get cái address của
+Wall này.
+
+48
+00:08:07,000 --> 00:08:12,850
+Đấy thì đầu tiên thì chúng ta sẽ thực hiện
+hoàn thành cái to 1 này.
+
+49
+00:08:13,000 --> 00:08:19,000
+Đấy, mục tiêu của nó là kiểm tra các cái ví
+của Cardano đã được cài đặt trên trình duyệt
+hay chưa. Đấy, chúng ta sẽ khai
+
+50
+00:08:23,000 --> 00:08:29,000
+con ST nà. Đây đã có hàm sẵn rồi viết vào đây.
+
+51
+00:08:32,000 --> 00:08:38,000
+On st use n trả về info này.
+
+52
+00:08:39,000 --> 00:08:45,000
+Ty of Windows T of Windows undefile
+
+53
+00:08:46,000 --> 00:08:52,000
+hoặc Windows Cano return rỗng này.
+
+54
+00:08:59,000 --> 00:09:05,000
+Rồi tiếp theo là ừ
+
+55
+00:09:07,000 --> 00:09:13,000
+support wallet sport wallet này.
+
+56
+00:09:19,000 --> 00:09:25,000
+Ừ mình thấy là cũng khá là tiện ấy. Xong tiếp
+theo là lọc này. Wall này. Available. Ok.
+
+57
+00:09:30,000 --> 00:09:36,000
+xong phần kiểm tra xem trình duyệt đã cài các
+cái extension của các cái ví của Cano hay chưa
+đấy. Đấy. Tiếp theo.
+
+58
+00:09:47,000 --> 00:09:53,000
+Tiếp theo thì chúng ta sẽ thực hiện query cái
+a
+
+59
+00:09:54,000 --> 00:10:00,000
+từ cái a wallet.
+
+60
+00:10:02,000 --> 00:10:08,000
+Đây đã có hàm này. Get wallet nà. Mình giải
+thích khá là chi tiết rồi.
+
+61
+00:10:09,000 --> 00:10:15,000
+Đây con ST address wallet con ST
+
+62
+00:10:25,000 --> 00:10:29,850
+bằng API.
+
+63
+00:10:30,000 --> 00:10:36,000
+Use address nè. Khá là tiện. If address ừ
+address
+
+64
+00:10:39,000 --> 00:10:45,000
+tại address
+
+65
+00:10:47,000 --> 00:10:52,850
+address.Llen Lần 0 nà
+
+66
+00:10:53,000 --> 00:10:59,000
+tại vị trí 0 và con ST unuse address này.
+
+67
+00:11:05,000 --> 00:11:08,850
+Get address này.
+
+68
+00:11:09,000 --> 00:11:15,000
+If unuse address nàress L này return này. Đấy.
+
+69
+00:11:17,000 --> 00:11:23,000
+L return. Ok.
+
+70
+00:11:25,000 --> 00:11:31,000
+Thì
+
+71
+00:11:42,000 --> 00:11:48,000
+sẽ giải thích một chút nhá. Theo chuẩn CIP-30
+list ấy thì nó có ba loại address. Loại đầu
+tiên là use address.
+
+72
+00:11:54,000 --> 00:12:00,000
+Đấy đâu theo chuẩn ship giải thích một chút
+nhá.
+
+73
+00:12:05,000 --> 00:12:11,000
+Giải thích một chút. Ừ.
+
+74
+00:12:16,000 --> 00:12:20,850
+chuẩt CIP-30
+
+75
+00:12:21,000 --> 00:12:27,000
+thì có ba loại address
+
+76
+00:12:30,000 --> 00:12:36,000
+ba loại address này đầu tiên là use address
+
+77
+00:12:38,000 --> 00:12:44,000
+là đã từng giao dịch thứ hai là unus R chưa
+chưa từng giao dịch và thứ ba là
+
+78
+00:12:46,000 --> 00:12:52,000
+address rate là nhận tiền thừa. Đấy thì mỗi
+wallet thì nó sẽ trả lại một cái format khác
+nhau.
+
+79
+00:12:58,000 --> 00:13:04,000
+Đấy thì cái address của chúng ta ấy, address
+của CIP-30 này nó sẽ trả về là dạng ha
+
+80
+00:13:06,000 --> 00:13:11,850
+và backend sẽ phải convert cái này về thành
+
+81
+00:13:12,000 --> 00:13:18,000
+là cái dịch vụ mà chúng ta đã thực hiện code
+cái API and point cho cái convert sang back
+32. Đấy. Đấy.
+
+82
+00:13:27,000 --> 00:13:33,000
+Tiếp theo thì chúng ta sẽ tiếp tục code phần
+connect valid. Đấy. Thì ở đây cũng khá là chi
+tiết mình hướng dẫn từng bước
+
+83
+00:13:35,000 --> 00:13:41,000
+Đầu tiên là check này xem có tồn tại hay
+không. Nếu như có thì lấy ID.
+
+84
+00:13:42,000 --> 00:13:45,850
+Nếu không tồn tại thì trả về và set connect.
+
+85
+00:13:46,000 --> 00:13:52,000
+Và tiếp theo là set các cái ừ các cái gì nhờ?
+
+86
+00:13:55,000 --> 00:14:01,000
+Ừ state để dùng cho để dùng cho toàn bộ dự án.
+Đấy, triển khai thôi.
+
+87
+00:14:07,000 --> 00:14:13,000
+Ừ, đầu tiên đó là connect wallet này. Use
+goback này. Đấy.
+
+88
+00:14:17,000 --> 00:14:22,850
+Ifall id à đâu if
+
+89
+00:14:23,000 --> 00:14:29,000
+duyệt tồn tại wallet thì chúng ta sẽ không tồn
+tại ấ thì chúng ta sẽ báo ra.
+
+90
+00:14:33,000 --> 00:14:39,000
+Đấy. Còn nếu nếu tồn tại thì chúng ta sẽ thực
+hiện gán cái wallist
+
+91
+00:14:41,000 --> 00:14:47,000
+cái wallet này.
+
+92
+00:14:54,000 --> 00:15:00,000
+Rồi nếu như Wallist tồn tại thì chúng ta sẽ
+lấy cái one list đầu tiên này này.
+
+93
+00:15:01,000 --> 00:15:07,000
+Nếu tồn tại, nếu không tồn tại thì lại báo
+tiếp
+
+94
+00:15:08,000 --> 00:15:14,000
+Set connecting to er bằng nun. Rồi tiếp theo
+là
+
+95
+00:15:20,000 --> 00:15:25,850
+con sti away valid
+
+96
+00:15:26,000 --> 00:15:31,850
+Con st address kiểu ha này.
+
+97
+00:15:32,000 --> 00:15:38,000
+Rồi tiếp theo là set các cái state.
+
+98
+00:15:41,000 --> 00:15:47,000
+Rồi tiếp theo là lưu cái a valid ID vào cái bộ
+nhớ local của trình
+
+99
+00:15:50,000 --> 00:15:56,000
+local storage của trình duyệt
+
+100
+00:15:59,000 --> 00:16:05,000
+thông báo ra đấy.
+
+101
+00:16:06,000 --> 00:16:10,850
+Finally, set connecting bằng full. Ok,
+
+102
+00:16:11,000 --> 00:16:17,000
+thực hiện xong cái connect wallet nhá. Hàm
+connect wallet. Tiếp theo disconnect wallet
+này.
+
+103
+00:16:27,000 --> 00:16:32,850
+Disconnect wallet thì cũng đây. Viết tiếp vào
+đây mình đã
+
+104
+00:16:33,000 --> 00:16:39,000
+bị khá là chi tiết rồi. Sử dụng compact này
+các cái state bằng hoặc là nun. Đấy.
+
+105
+00:16:46,000 --> 00:16:52,000
+Rồi set er bằng nun rồi. Loco storage remove
+xóa đi.
+
+106
+00:16:55,000 --> 00:17:01,000
+Rồi tiếp theo thì chúng ta sẽ triển khai
+
+107
+00:17:05,000 --> 00:17:11,000
+ờ cái ờ cái gì nhở? Hàm gọi là ký giao dịch.
+
+108
+00:17:16,000 --> 00:17:22,000
+Đấy. Ứ chúng ta lại phải nhắc lại đấy. Thằng
+
+109
+00:17:25,000 --> 00:17:31,000
+backend đấy. Nó sẽ trả về cái giao dịch trả về
+cái thông tin giao dịch đã build
+
+110
+00:17:34,000 --> 00:17:40,000
+cho frontend và frontend nó sẽ ký cái giao
+dịch đấy. Đấy.
+
+111
+00:17:45,000 --> 00:17:51,000
+Đây chúng ta sẽ triển khai vào đây. Đầu tiên
+là if wallet API.
+
+112
+00:17:58,000 --> 00:18:04,000
+Rồi kiểm tra xem đã kết nối wallet chưa. page
+
+113
+00:18:14,000 --> 00:18:20,000
+xong return wallet API.
+
+114
+00:18:26,000 --> 00:18:32,000
+Đấy, kết thông báo lỗi
+
+115
+00:18:38,000 --> 00:18:42,850
+bỏ cái true này đi.
+
+116
+00:18:43,000 --> 00:18:49,000
+trong cái a hàm kết đã bắt lỗi rồi.
+
+117
+00:18:55,000 --> 00:19:01,000
+Rồi ở đây nhá mình sẽ giải thích lại một chút.
+
+118
+00:19:04,000 --> 00:19:10,000
+Ờ cái function ký trans này này thì đầu vào nó
+chính là cái TX ở dạng đã được
+
+119
+00:19:15,000 --> 00:19:21,000
+về sau khi người dùng gửi cái yêu cầu mint hay
+là update hay là burn ấy. Đấy
+
+120
+00:19:22,000 --> 00:19:28,000
+cái TX này nó là cái transaction chưa có chữ
+ký đấy.
+
+121
+00:19:34,000 --> 00:19:39,850
+Và khi nó thực hiện cái hàm này nó sẽ
+
+122
+00:19:40,000 --> 00:19:46,000
+ra một cái sport
+
+123
+00:19:50,000 --> 00:19:56,000
+tạo ra một cái transaction dạng sport đấy.
+chứa chư ký đấy.
+
+124
+00:20:23,000 --> 00:20:29,000
+chữ ký xong và gửi lại bên aend xử lý một chữ
+ký.
+
+125
+00:21:13,000 --> 00:21:19,000
+Tiếp theo nhá, chúng ta sẽ viết thêm một cái
+hàm nữa là hàm how to reconnect.
+
+126
+00:21:22,000 --> 00:21:28,000
+Đấy, đây thêm vào cuối nà. Use effect nè.
+
+127
+00:21:34,000 --> 00:21:40,000
+Reconnect use effect. Save wallet. Đấy, get id
+này.
+
+128
+00:21:41,000 --> 00:21:47,000
+Nếu là Windows thì chúng ta sẽ save lại và
+connect cái wallet đó.
+
+129
+00:21:57,000 --> 00:22:03,000
+Điều này sẽ làm cho mỗi lần chúng ta ừ mở lại
+ứng dụng trên web ấy thì nó sẽ tự
+
+130
+00:22:05,000 --> 00:22:11,000
+connect lại những nếu như trong trình duyệt
+của chúng ta vẫn còn lưu cái wall trong những
+lần kết nối trước đó.
+
+131
+00:22:14,000 --> 00:22:20,000
+Ok. Sau khi chúng ta đã xử lý cái Wall Context
+rồi thì chúng ta sẽ đến với bước tiếp theo
+
+132
+00:22:24,000 --> 00:22:30,000
+là ờ code cái nút collect wallet đấy.
+
+133
+00:22:35,000 --> 00:22:41,000
+Ừ. để thực hiện ờ chọn ừ để thực hiện
+
+134
+00:22:43,000 --> 00:22:49,000
+vào cái nút kết nối wallet và kết nối ấy kết
+nối ví ấy. Đấy thì chúng ta sẽ vào code này
+under collect viết vào đây.
+
+135
+00:22:54,000 --> 00:23:00,000
+Ừ connect wallet này. Đấy set drop down.
+
+136
+00:23:03,000 --> 00:23:09,000
+Kết nối xong thì drop down bằng full. Đấy.
+
+137
+00:23:12,000 --> 00:23:18,000
+Rồi rồi chúng ta sau khi set dropdown xong
+nhá.
+
+138
+00:23:36,000 --> 00:23:42,000
+Rồi bây giờ chúng ta set dropdown xong chúng
+ta sẽ quay lại trình duyệt xem có gì khác
+không nhá. Tức là chúng ta đã thực hiện gọi
+đến cái gì nhở?
+
+139
+00:23:49,000 --> 00:23:55,000
+hàm connect wallet ở trong cái context rồi
+đấy. Và đã gắn cái component
+
+140
+00:23:57,000 --> 00:24:03,000
+cái giao diện người dùng rồi. Bây giờ chúng ta
+sẽ vào thử xem đã thực hiện được kết nối
+Wallet chưa.
+
+141
+00:24:11,000 --> 00:24:16,850
+Đây kết nối ví này mình đang có ví đấy. chọn
+
+142
+00:24:17,000 --> 00:24:23,000
+Ok. Giao diện đã có này. Đấy. Có thông tin của
+cái form để mint này rồi nhá. Đấy.
+
+143
+00:24:28,000 --> 00:24:34,000
+Rồi chưa có NFT nào. Ngắt kết nối.
+
+144
+00:24:35,000 --> 00:24:41,000
+Kết nối lại. Click. Rồi làm mới này. Không có
+gì. Ok chưa?
+
+145
+00:24:43,000 --> 00:24:49,000
+Rồi chúng ta sẽ đến với bước tiếp theo.
+
+146
+00:25:02,000 --> 00:25:08,000
+Bước tiếp theo của chúng ta đó là thực hiện
+cái xử lý các cái hành động
+
+147
+00:25:10,000 --> 00:25:16,000
+dịch mint. update và bớn. Đấy, đầu tiên vào
+mint trước đây. Thì đầu tiên thì
+
+148
+00:25:18,000 --> 00:25:23,850
+ta sẽ phải thực hiện xây dựng cái a
+
+149
+00:25:24,000 --> 00:25:30,000
+trình xử lý a phần mint bao gồm các phần như
+là thu
+
+150
+00:25:34,000 --> 00:25:40,000
+thông tin này, gửi cái yêu cầu mint lên
+backend và backend sẽ xử lý.
+
+151
+00:25:46,000 --> 00:25:52,000
+lý trả về data này. Đấy. Đấy. Thì bước đầu
+tiên
+
+152
+00:25:53,000 --> 00:25:59,000
+ta sẽ thực hiện code
+
+153
+00:26:01,000 --> 00:26:07,000
+Kiểm tra xem đã connect wallet hay chưa. Đấy.
+Nếu connect wallet rồi thì
+
+154
+00:26:09,000 --> 00:26:15,000
+báo kết nối Wall. Đấy, xong bắt đầu vào rồi.
+Try này.
+
+155
+00:26:23,000 --> 00:26:29,000
+P đâu? final đấy.
+
+156
+00:26:31,000 --> 00:26:37,000
+Chai đầu tiên thì chúng ta sẽ test loading.
+
+157
+00:26:39,000 --> 00:26:45,000
+Đấy, khi nhấn cái nút mint ấy nó sẽ mở một cái
+
+158
+00:26:47,000 --> 00:26:53,000
+ra nó quay đấy. quay tạo hiệu ứng và set cái
+status này để thông báo
+
+159
+00:26:54,000 --> 00:26:58,850
+màn hình này. Đầu tiên là build transaction
+này.
+
+160
+00:26:59,000 --> 00:27:04,850
+Đấy, response. Chúng ta sẽ định giữa một cái
+respond và fết cái
+
+161
+00:27:05,000 --> 00:27:11,000
+API đây.
+
+162
+00:27:15,000 --> 00:27:21,000
+S gọi đến cái endpoint API mint này là đúng
+chưa? API mint này.
+
+163
+00:27:22,000 --> 00:27:28,000
+Đấy cái này method là post đấy. Method là
+
+164
+00:27:33,000 --> 00:27:39,000
+là content type và application chon
+
+165
+00:27:40,000 --> 00:27:45,850
+thì có kiểu là jon.
+
+166
+00:27:46,000 --> 00:27:52,000
+File nè. Đấy,
+
+167
+00:27:55,000 --> 00:28:01,000
+file thì thu thập các cái trường để gửi lên
+backend bao gồm wallet address
+
+168
+00:28:02,000 --> 00:28:08,000
+token name là description này. Các trường này
+đã được thu thập thông qua các state này,
+token name, description này.
+
+169
+00:28:11,000 --> 00:28:17,000
+Ok chưa? Rồi tiếp theo là đóng cái hàm này lại
+đã có respond.
+
+170
+00:28:18,000 --> 00:28:24,000
+Tiếp theo thì lấy cái data từ cái phản hồi
+rồi.
+
+171
+00:28:27,000 --> 00:28:33,000
+Awet response chấm thằng chơ này.
+
+172
+00:28:47,000 --> 00:28:52,850
+không có gì thì thông báo lỗi này.
+
+173
+00:28:53,000 --> 00:28:56,850
+Đấy bạn này thì hơi hơi ấy một chút nhá.
+
+174
+00:28:57,000 --> 00:29:03,000
+Mình định nghĩa lại kiểu component mean này.
+Đấy,
+
+175
+00:29:09,000 --> 00:29:15,000
+nghĩa lạnh kiểu Hva
+
+176
+00:30:14,000 --> 00:30:20,000
+Thôi cái đấy tí fix sau vậy. Bước thứ hai là
+bước ký giao dịch này.
+
+177
+00:30:22,000 --> 00:30:26,850
+Ký giao dịch thì set status này.
+
+178
+00:30:27,000 --> 00:30:33,000
+Đấy và thực hiện ký
+
+179
+00:30:39,000 --> 00:30:45,000
+bước ba là submit giao dịch lại backend. Đấy
+lại tiếp tục set nè.
+
+180
+00:30:47,000 --> 00:30:53,000
+Đấy lại tiếp tục submit response method.
+
+181
+00:31:07,000 --> 00:31:12,850
+Và cuối cùng là in cái thông tin ra ngoài màn
+hình.
+
+182
+00:31:13,000 --> 00:31:19,000
+Đấy. Tiếp theo là xét cái form rỗng
+
+183
+00:31:21,000 --> 00:31:27,000
+thành công rồi.
+
+184
+00:31:41,000 --> 00:31:47,000
+Rồi do mình thiếu dấu ngoặc đấy. Xong rồi nhá.
+
+185
+00:31:50,000 --> 00:31:52,850
+Mình sẽ nói lại đoạn này một chút.
+
+186
+00:31:53,000 --> 00:31:59,000
+Ừ. Đầu tiên thì chúng ta nói chung là mấy cái
+này là mấy cái hiển thị thôi. Đấy hiển thị nên
+
+187
+00:32:01,000 --> 00:32:07,000
+sẽ không nói mấy cái này. Đầu tiên thì chúng
+ta sẽ gửi một cái request lên cái a backend.
+Đấy, backend
+
+188
+00:32:11,000 --> 00:32:17,000
+với yêu cầu là gửi các cái thông tin như là
+valid này, token này và yêu cầu là mint. Đấy,
+thằng API endpoint mint nhận
+
+189
+00:32:20,000 --> 00:32:26,000
+request này và nó xử lý nó sẽ build tranh
+session trong backend như lúc chúng ta đã
+
+190
+00:32:29,000 --> 00:32:35,000
+lý lúc nãy đấy. Đấy. Và nó trả về trả về cái
+transaction unsigned. Đấy. Đây này. Trả về
+transaction unsigned.
+
+191
+00:32:41,000 --> 00:32:47,000
+Đấy. Khi trả về transaction thì chúng ta sẽ
+gọi cái hàm size TX này mà chúng
+
+192
+00:32:48,000 --> 00:32:54,000
+đã xây dựng trong cái valid context ấy. Đấy.
+Đây này. Wall context đây này.
+
+193
+00:32:57,000 --> 00:32:58,850
+Đây.
+
+194
+00:32:59,000 --> 00:33:05,000
+Thì cái hàm này nó sẽ thực hiện ký ký cái giao
+dịch ừ ký cái giao dịch này.
+
+195
+00:33:08,000 --> 00:33:14,000
+Đấy và nó chủ động cập nhật cái witness set
+trong cái TXC này này.
+
+196
+00:33:17,000 --> 00:33:20,850
+Đấy.
+
+197
+00:33:21,000 --> 00:33:27,000
+Và sau khi chúng ta ký xong, tức là cái giao
+dịch đã có chữ ký rồi thì chúng ta
+
+198
+00:33:28,000 --> 00:33:34,000
+lại gửi lại cái đã có witness set đấy.
+
+199
+00:33:36,000 --> 00:33:38,850
+Lên cái gì nhở?
+
+200
+00:33:39,000 --> 00:33:45,000
+cái backend để backend thực hiện mt chừ ký và
+submit lên on trên. Đấy mình nhắc lại một lần
+nữa nhá.
+
+201
+00:33:50,000 --> 00:33:56,000
+Đầu tiên frontend gửi yêu cầu mint này bao gồm
+thông tin token và description này. Sau đó thì
+
+202
+00:33:59,000 --> 00:34:05,000
+sẽ trả về cái ờ cấu trúc ừ response bao gồm
+các cái trường như là TX Body đấy.
+
+203
+00:34:10,000 --> 00:34:16,000
+Ờ TX body này ờ TX WNE set này được gói
+
+204
+00:34:17,000 --> 00:34:23,000
+TXC đấy. Thì thằng witness set này nó sẽ thực
+hiện ký ký vào đấy.
+
+205
+00:34:26,000 --> 00:34:28,850
+Đấy.
+
+206
+00:34:29,000 --> 00:34:35,000
+Ký vào và nó tiếp tục nó gửi lại cái witness
+set CBOR cho backend.
+
+207
+00:34:40,000 --> 00:34:46,000
+witness set nó sẽ xử lý chữ ký bên backend ấy.
+Nó sẽ ừ lấy cái chữ ký của
+
+208
+00:34:47,000 --> 00:34:53,000
+wallet đá kỹ ấy trong cái witness set và nó
+gộp vào transaction và nó thực hiện submit lên
+giao dịch.
+
+209
+00:35:08,000 --> 00:35:14,000
+Đây chúng ta có thể xem lại cái hàm ký này.
+
+210
+00:35:16,000 --> 00:35:19,850
+Đấy.
+
+211
+00:35:20,000 --> 00:35:26,000
+Đây là của cái API shift
+
+212
+00:35:33,000 --> 00:35:39,000
+Đấy. Đấy.
+
+213
+00:35:41,000 --> 00:35:47,000
+Đấy. Cái a ừ mình sẽ nhắc lại một lần nữa. Cái
+a dự án này nó khó ở cái đó là cái xử lý tách
+cái giao dịch ra. Đấy.
+
+214
+00:35:52,000 --> 00:35:58,000
+Làm sao để khi gửi về frontend chúng ta sẽ có
+thể ký được ký được cái giao dịch đó và chuyển
+về
+
+215
+00:35:59,000 --> 00:36:05,000
+end. backend sẽ lấy được cái chữ ký và gộp vào
+giao dịch và submit lên on trên.
+
+216
+00:36:08,000 --> 00:36:14,000
+Ok, như vậy là chúng ta đã xong phần triển
+khai cái mint logic mint.
+
+217
+00:36:31,000 --> 00:36:33,850
+Triển khai xong cái logic mint này rồi nhá.
+
+218
+00:36:34,000 --> 00:36:40,000
+Chúng ta sẽ tiếp theo là chúng ta sẽ đến phần
+
+219
+00:36:45,000 --> 00:36:51,000
+Thì tương tự như vậy, chúng ta vào update moda
+này này. Đấy, tiếp tục triển khai logic.
+
+220
+00:36:55,000 --> 00:37:01,000
+Đầu tiên vẫn là phải trai chai và catch.
+
+221
+00:37:26,000 --> 00:37:32,000
+Đầu tiên vẫn là xét các cái hiệu ứng đấy.
+
+222
+00:37:39,000 --> 00:37:45,000
+Rồi gửi request AP này API P này.
+
+223
+00:37:54,000 --> 00:37:59,850
+Chúng ta sẽ gửi lên token name và wallet
+address.
+
+224
+00:38:00,000 --> 00:38:06,000
+À đâu cái này là bơ chứ mình nhầm mình nhầm.
+
+225
+00:38:09,000 --> 00:38:15,000
+Update đây. Update đây. Update đây.
+
+226
+00:38:17,000 --> 00:38:23,000
+Bằng update. Đấy.
+
+227
+00:38:25,000 --> 00:38:31,000
+Rồi lấy data lại tiếp tục xử lý chữ ký thôi.
+
+228
+00:38:35,000 --> 00:38:41,000
+Rồi tiếp tục.
+
+229
+00:38:47,000 --> 00:38:53,000
+Tiếp tục lấy ra chữ ký này và thực hiện ký.
+
+230
+00:39:07,000 --> 00:39:13,000
+Ừ, mình sẽ nhắc lại một lần nữa thì cái TXC ấy
+nó sẽ có hai thành phần. Thành
+
+231
+00:39:17,000 --> 00:39:23,000
+đầu tiên đó là TX body và witness set. Đấy.
+Thì cái hàm hàm size TX này
+
+232
+00:39:26,000 --> 00:39:32,000
+Đấy. Cái hàm size TX này nó sẽ tự xử lý
+
+233
+00:39:34,000 --> 00:39:39,850
+cái ký cho chúng ta đấy. Tự xử lý ký cho
+
+234
+00:39:40,000 --> 00:39:46,000
+ta vào cái TXCP trả về đây này. Và nó sẽ trả
+ra cái witness set đã bao gồm
+
+235
+00:39:49,000 --> 00:39:55,000
+ký của Wall. Đấy, mình sẽ nhắc lại một lần nữa
+để mọi người nắm bắt chi tiết hơn.
+
+236
+00:39:57,000 --> 00:40:03,000
+Vì nãy trong phần mint ấy mình cảm thấy là
+mình nói chưa thực sự clear. Đấy, tức
+
+237
+00:40:04,000 --> 00:40:10,000
+cái hàm size TX này đấy, đầu vào tham số của
+nó là cái transaction,
+
+238
+00:40:14,000 --> 00:40:20,000
+là full cái transaction ở dạng JB mà chúng ta
+đã xử lý bên backend đấy.
+
+239
+00:40:22,000 --> 00:40:28,000
+Thì nó sẽ nhận vào là cái transaction dạng
+CBOR nó sẽ chủ động xử lý ký và trả
+
+240
+00:40:30,000 --> 00:40:36,000
+cái witness set. Đấy, thì sau khi hàm này nó
+chạy xong rồi này, chúng ta không cần quan tâm
+nó xử lý như thế nào nhá.
+
+241
+00:40:40,000 --> 00:40:45,850
+Đấy, chúng ta chỉ quan tâm là chúng ta cho nó
+vào đầu vào của nó là cái trang
+
+242
+00:40:46,000 --> 00:40:52,000
+ở dạng đã được xử lý bên backend. Đấy, đầu vào
+là transaction là dạng C đã xử lý bên backend.
+
+243
+00:40:56,000 --> 00:41:02,000
+Và nó kết quả của nó cho ra witness set đã có
+chữ ký của Wall. Đấy mọi người chỉ cần hiểu
+thế thôi.
+
+244
+00:41:06,000 --> 00:41:11,850
+Sau đó sau khi có witness set rồi nhá.
+
+245
+00:41:12,000 --> 00:41:18,000
+Tiếp theo bước tiếp theo này. Đấy chúng ta sẽ
+lại submit một lần nữa cái
+
+246
+00:41:22,000 --> 00:41:24,850
+session C4 này quay lại backend.
+
+247
+00:41:25,000 --> 00:41:31,000
+cái witness set core đấy. Tức là cái cái này
+này nó sẽ tự xử
+
+248
+00:41:33,000 --> 00:41:39,000
+cho chúng ta để cho ra một cái đối tượng gọi
+là witness set. Đấy để chúng ta chuyển lại
+trong cái đối tượng
+
+249
+00:41:42,000 --> 00:41:47,850
+set đấy. Nó sẽ có chữ ký của Wallist.
+
+250
+00:41:48,000 --> 00:41:54,000
+Mọi người chưa? Có cần mình mở lại code
+backend để nói lại không? Ok. Mở lại code
+backend để nói lại một chút nhá.
+
+251
+00:41:58,000 --> 00:42:04,000
+Đây đâu nhở? Xử lý chữ ký nhận về cái
+
+252
+00:42:07,000 --> 00:42:13,000
+cầu submit đâu nhỉ? Đây nhá. Nói lại cái đoạn
+này đây nhá. transaction C4 này này. Nó là cái
+transaction có hai thành phần body và witness
+set. Đấy.
+
+253
+00:42:19,000 --> 00:42:25,000
+Đấy. Thì quay lại đây thì nó sẽ trả về
+
+254
+00:42:26,000 --> 00:42:32,000
+trả về cái gì nhờ? Đây cái redond này nó sẽ
+trả về cái TXC chính là cái thằng này.
+
+255
+00:42:39,000 --> 00:42:41,850
+Đấy đã được chuyển sang CBOR.
+
+256
+00:42:42,000 --> 00:42:47,850
+Thì trong cái thằng này nó sẽ có hai cái đối
+tượng là TX body và witness set.
+
+257
+00:42:48,000 --> 00:42:53,850
+Đấy thì khi thằng này nó xử lý cái hàm size
+này này, nó xử lý cái kiểu dữ liệu
+
+258
+00:42:54,000 --> 00:43:00,000
+CBOR này, nó sẽ tự xử lý và trả ra cho chúng
+ta cái kiểu dữ liệu Wi Net đã có cái V kỳ.
+
+259
+00:43:05,000 --> 00:43:11,000
+Chúng ta không cần quan tâm nó xử lý như thế
+nào đâu. Đây là thư viện người ta làm, thư
+viện người ta thực hiện. Chúng ta không cần
+quan tâm, chúng ta chỉ cần
+
+260
+00:43:14,000 --> 00:43:20,000
+tâm cái hàm size này nó nhận vào là một đối
+tượng transaction ở dạng Core
+
+261
+00:43:22,000 --> 00:43:28,000
+nó trả ra cho chúng ta đối tượng WN set. Đấy,
+witness set này nó sẽ có V key của Wallet đã
+được ký. Đấy, ok.
+
+262
+00:43:32,000 --> 00:43:38,000
+Đấy. Thì cái hàm sau khi chúng ta ký xong nhá
+là chúng ta submit lại này.
+
+263
+00:43:40,000 --> 00:43:43,850
+Đấy, submit lại.
+
+264
+00:43:44,000 --> 00:43:50,000
+Ký xong chúng ta submit lại. Đây, submit lại
+đây. Đúng không? Request này cái này thì
+
+265
+00:43:52,000 --> 00:43:58,000
+TX là full các cái TX. Đấy, thì chúng ta gắn
+nhá. Còn cái wallet widnck
+
+266
+00:43:59,000 --> 00:44:05,000
+đấy thì nó sẽ lấy cái cnnet này và nó gán vào
+cái wallet widnet này.
+
+267
+00:44:08,000 --> 00:44:14,000
+Đấy thì trong cái wallet winnet này sẽ nó sẽ
+có cái v chúng ta đã ký đấy. Đấy
+
+268
+00:44:25,000 --> 00:44:31,000
+Xong cái a TXC này bởi vì nó được cấu tạo bởi
+hai
+
+269
+00:44:33,000 --> 00:44:39,000
+phần đúng không? transaction body và
+transaction webnet. Đấy thì sau khi chúng ta
+đã gộp cái chữ ký từ
+
+270
+00:44:40,000 --> 00:44:46,000
+Wall người dùng gửi lên rồi thì nó sẽ gụp vào
+đây. Nó thay thế cái WNET ban đầu kia kìa.
+
+271
+00:44:51,000 --> 00:44:57,000
+Đấy mình nói khá là chi tiết như vậy cũng mong
+là cũng mọi người sẽ hiểu rõ
+
+272
+00:44:59,000 --> 00:45:05,000
+Đấy. Ok. Tiếp theo là submit data.
+
+273
+00:45:06,000 --> 00:45:11,850
+Submit data này kiểm tra xem có suc hay không.
+
+274
+00:45:12,000 --> 00:45:18,000
+Đấy nhá.
+
+275
+00:45:19,000 --> 00:45:25,000
+Suc không? Nếu như suc thì chúng ta sẽ thực
+hiện close bỏ cái
+
+276
+00:45:28,000 --> 00:45:34,000
+đó đi rồi và phát bỏ.
+
+277
+00:45:42,000 --> 00:45:48,000
+Ok. Ừ.
+
+278
+00:45:51,000 --> 00:45:57,000
+Ok, đã xong phần update nhá.
+
+279
+00:45:58,000 --> 00:46:04,000
+Đã xong logic phần update. Tiếp theo thì chúng
+ta sẽ vào phần logic B. Thì cũng
+
+280
+00:46:05,000 --> 00:46:11,000
+khác gì mấy trong phần logic B này thì vẫn là
+gửi cái yêu cầu bơ lên bao
+
+281
+00:46:12,000 --> 00:46:18,000
+những cái thông tin như là toen muốn bơ chẳng
+hạn.
+
+282
+00:46:19,000 --> 00:46:25,000
+Đầu tiên vẫn phải thêm những cái rer này cho
+giao diện nó có sự trải nghiệm mượt mà. Ok.
+Gửi request.
+
+283
+00:46:32,000 --> 00:46:38,000
+Ừ. burn này gửi end point là burn API burn này
+tham số yêu cầu là token này tiếp
+
+284
+00:46:42,000 --> 00:46:48,000
+là nhận về data phản hồi
+
+285
+00:46:50,000 --> 00:46:56,000
+theo là nhận về data phản hồi à đấy tiếp theo
+là nếu data sucit
+
+286
+00:46:58,000 --> 00:47:02,850
+hiển thị.
+
+287
+00:47:03,000 --> 00:47:09,000
+Còn nếu không thì not vẫn là lấy cái a
+
+288
+00:47:12,000 --> 00:47:18,000
+set ra và thực hiện ký và trả về witness set
+đã có chữ ký đấy. Gọi lại
+
+289
+00:47:19,000 --> 00:47:25,000
+lại giao dịch đây. Submit lại txc
+
+290
+00:47:26,000 --> 00:47:29,850
+để gán lại cái transaction và wn
+
+291
+00:47:30,000 --> 00:47:36,000
+để gộp cái chữ ký vào TXC sau đó rồi lấy ra
+cái thông tin kết quả.
+
+292
+00:47:43,000 --> 00:47:49,000
+Và bây giờ là thông báo và thoát form.
+
+293
+00:47:53,000 --> 00:47:57,850
+Ok.
+
+294
+00:47:58,000 --> 00:48:04,000
+Rồi sau khi chúng ta đã viết sang viết xong
+một số các cái logic của cái
+
+295
+00:48:06,000 --> 00:48:12,000
+cái thằng gọi là mint b update ấy thì chúng ta
+sẽ có thêm một cái
+
+296
+00:48:15,000 --> 00:48:21,000
+bổ trợ cho cái giao diện của chúng ta như là
+hiển thị các cái asset theo chuẩn CIP-68 trong
+ví của chúng ta.
+
+297
+00:48:24,000 --> 00:48:30,000
+Đấy, chúng ta sẽ thực hiện đây nào. Đây triển
+khai ở đây.
+
+298
+00:48:32,000 --> 00:48:38,000
+Rồi đầu tiên sẽ loading này. Đấy, chai kết.
+
+299
+00:48:50,000 --> 00:48:56,000
+Rồi đầu tiên đó là gửi request lên
+
+300
+00:48:57,000 --> 00:49:03,000
+nhận lại response
+
+301
+00:49:05,000 --> 00:49:11,000
+này. P nè, point là API Wall, địa chỉ valid
+này.
+
+302
+00:49:16,000 --> 00:49:17,200
+Đấy.
+
+303
+00:49:17,000 --> 00:49:23,000
+Rồi tiếp theo đó là nhận lại data và nếu như
+không thành công thì return rẫm.
+
+304
+00:49:29,000 --> 00:49:34,850
+Còn tiếp theo là xử lý profit này. Đấy,
+
+305
+00:49:35,000 --> 00:49:41,000
+những cái access có profit là user token
+profit
+
+306
+00:49:44,000 --> 00:49:50,000
+decode ra dạng
+
+307
+00:49:52,000 --> 00:49:58,000
+thể đọc token name đấy.
+
+308
+00:50:06,000 --> 00:50:12,000
+Rồi tức là tên thì lấy là tên là xa nhưng mà
+hiển thị là hiển thị to nhá.
+
+309
+00:50:15,000 --> 00:50:21,000
+Đấy. Sau đấy thì set state rồi tiếp theo là
+load thôi.
+
+310
+00:50:27,000 --> 00:50:33,000
+Rồi chúng ta đã lấy xong.
+
+311
+00:50:34,000 --> 00:50:40,000
+Rồi tiếp theo có một số các cái phần như là
+cần phải load metadata
+
+312
+00:50:42,000 --> 00:50:48,000
+từng cái token một chúng ta cũng phải viết.
+Đấy.
+
+313
+00:50:49,000 --> 00:50:55,000
+Đây try này. Kết.
+
+314
+00:51:06,000 --> 00:51:12,000
+Đầu tiên thì chúng ta cũng phải query từ
+backend những cái metadata theo token name.
+
+315
+00:51:16,000 --> 00:51:18,850
+Đấy.
+
+316
+00:51:19,000 --> 00:51:25,000
+Tiếp theo là vãy ra.
+
+317
+00:51:27,000 --> 00:51:33,000
+Và nếu như thành công thì description sau đó
+thì xử lý metadata.
+
+318
+00:51:40,000 --> 00:51:46,000
+Nếu metadata data chmetion
+
+319
+00:51:52,000 --> 00:51:58,000
+metadata
+
+320
+00:52:07,000 --> 00:52:11,850
+như không phải thì là heading rồi.
+
+321
+00:52:12,000 --> 00:52:18,000
+Rồi tiếp theo là xét danh sách Đ
+
+322
+00:52:45,000 --> 00:52:51,000
+Ok.
+
+323
+00:53:00,000 --> 00:53:06,000
+Tiếp theo thì chúng ta sẽ code thêm một cái
+hàm gọi là hàm auto refresh khi mà
+
+324
+00:53:07,000 --> 00:53:13,000
+NFT thay đổi. Khi mà access nó thay đổi ấy,
+get hàm effect.
+
+325
+00:53:15,000 --> 00:53:17,850
+Đấy.
+
+326
+00:53:18,000 --> 00:53:24,000
+Rồi. Ok. Sau khi chúng ta đã hoàn thành xong
+các cái component rồi bao gồm các
+
+327
+00:53:26,000 --> 00:53:31,850
+component để phục vụ cho quá trình mint này
+đấy.
+
+328
+00:53:32,000 --> 00:53:37,850
+update này và burn
+
+329
+00:53:38,000 --> 00:53:43,850
+list các cái access và
+
+330
+00:53:44,000 --> 00:53:50,000
+các cái metadata, hiển thị metadata thì chúng
+ta sẽ tiếp theo đó là thực hiện
+
+331
+00:53:53,000 --> 00:53:59,000
+cái địa trí và
+
+332
+00:54:03,000 --> 00:54:09,000
+cái địa chỉ vào backend. Đấy, vì là theo chuẩn
+CIP-30 ấy, địa chỉ nó là địa chỉ dạng hexa.
+
+333
+00:54:13,000 --> 00:54:17,850
+Đấy, nên chúng ta cũng phải chuyển nó thành
+dạng.
+
+334
+00:54:18,000 --> 00:54:24,000
+Rồi chúng ta sẽ vào file Home Context này và
+thực hiện chuyển.
+
+335
+00:54:26,000 --> 00:54:32,000
+Đầu tiên thì chúng ta sẽ phải chce.
+
+336
+00:54:52,000 --> 00:54:58,000
+Ừ. Gửi request lên yêu cầu convert đấy.
+
+337
+00:55:03,000 --> 00:55:08,850
+Return này. Return này hình như trong ít đúng
+không? Ok.
+
+338
+00:55:09,000 --> 00:55:15,000
+Rồi tiếp theo là lấy ra data. Đấy.
+
+339
+00:55:16,000 --> 00:55:22,000
+Và nếu data success 32
+
+340
+00:55:25,000 --> 00:55:31,000
+Ok. Tiếp theo thì có một số các cái
+
+341
+00:55:32,000 --> 00:55:38,000
+tính năng như là lấy thông tin script từ
+backend như là ID của các cái access mà store
+address.
+
+342
+00:55:45,000 --> 00:55:51,000
+Chúng ta sẽ thực hiện luôn.
+
+343
+00:55:54,000 --> 00:56:00,000
+Vẫn là try. Try này.
+
+344
+00:56:03,000 --> 00:56:09,000
+Backet. Đấy,
+
+345
+00:56:11,000 --> 00:56:13,850
+là gửi request này.
+
+346
+00:56:14,000 --> 00:56:20,000
+Đấy, lấy data và set script info.
+
+347
+00:56:33,000 --> 00:56:39,000
+Rồi script info đã khai báo chưa?
+
+348
+00:56:56,000 --> 00:57:02,000
+info này.
+
+349
+00:57:33,000 --> 00:57:39,000
+Sao cái này lại không dùng được add script
+info đ Ah
+
+350
+00:58:09,000 --> 00:58:15,000
+address này.
+
+351
+00:58:22,000 --> 00:58:28,000
+Rồi mình thừa một giống ngoặc. Ok, xong rồi.
+
+352
+00:58:34,000 --> 00:58:40,000
+Như vậy là chúng ta đã code xong phần
+
+353
+00:58:41,000 --> 00:58:46,850
+diện. Mình sẽ tổng kết lại một chút phần code
+
+354
+00:58:47,000 --> 00:58:53,000
+đầu tiên. Đấy. Ừ. chúng ta đã vào thiết lập
+
+355
+00:58:55,000 --> 00:59:01,000
+các cái hàm trong phần Wallet Context để sử
+dụng trong toàn bộ ứng dụng bao gồm như là
+
+356
+00:59:03,000 --> 00:59:09,000
+kiểm tra xem trình duyệt đã cài đặt các cái
+extension cho các cái ví của Gano
+
+357
+00:59:11,000 --> 00:59:17,000
+chưa. Đấy. Thứ hai đó là lấy address
+
+358
+00:59:18,000 --> 00:59:24,000
+CIP-30 trả về dạng x dạng buy. Đấy. Đấy. Tiếp
+theo đấy là
+
+359
+00:59:28,000 --> 00:59:34,000
+ta sẽ thực hiện ờ viết cái a hàm connect
+wallet đấy.
+
+360
+00:59:37,000 --> 00:59:43,000
+Và disconnect wallet này và viết hàm ký ký
+giao dịch.
+
+361
+00:59:46,000 --> 00:59:52,000
+Đấy, ký giao dịch thì đầu vào của nó là
+transaction ở dạng core và nó sẽ trả về cái
+witness set. Đấy,
+
+362
+01:00:01,000 --> 01:00:07,000
+từ cái witness set đấy, chúng ta sẽ gửi lại
+backend để backend thực hiện gộp cái witness
+set vào cái witness set trong transaction.
+
+363
+01:00:13,000 --> 01:00:17,850
+Đấy để cái submit giao dịch.
+
+364
+01:00:18,000 --> 01:00:24,000
+Đấy sau đấy thì chúng ta cũng đã ừ gọi đến cái
+hàm connect wallet trong cái component connect
+wallet.
+
+365
+01:00:33,000 --> 01:00:39,000
+Đấy. Rồi tiếp theo thì chúng ta cũng đã viết
+logic phần mint.
+
+366
+01:00:41,000 --> 01:00:47,000
+Đấy, phần mint thì lộ trình của nó đấy là gửi
+yêu cầu lên là mint 1 access theo
+
+367
+01:00:49,000 --> 01:00:55,000
+CIP-68 ở bên backend với các tham số là token
+name và description
+
+368
+01:00:56,000 --> 01:01:02,000
+về một data phản hồi. Đấy, phản hồi này là có
+chứa transaction ở dạng Core chưa có chữ ký
+này.
+
+369
+01:01:06,000 --> 01:01:12,000
+khi a và dùng cái hàm size TX để ký ký và trả
+
+370
+01:01:14,000 --> 01:01:20,000
+cái witness set. Đấy, witness set tiếp tục
+được submit lại trên backend
+
+371
+01:01:21,000 --> 01:01:27,000
+với cái transaction CBOR này. Và bên backend
+sẽ thực hiện gục cái WN set
+
+372
+01:01:28,000 --> 01:01:34,000
+có cái chữ ký của ví vào transaction CBOR và
+submit lên on trên. Đấy,
+
+373
+01:01:36,000 --> 01:01:42,000
+với update cũng như vậy,
+
+374
+01:01:43,000 --> 01:01:46,850
+tương tự và bơn cũng tương tự.
+
+375
+01:01:47,000 --> 01:01:52,850
+Rồi sau khi chúng ta đã xong thì chúng ta có
+thêm một bước xử lý nhỏ nữa đó là
+
+376
+01:01:53,000 --> 01:01:59,000
+các cái asset của người dùng đấy theo chuẩn
+CIP-68.
+
+377
+01:02:05,000 --> 01:02:11,000
+xử lý hiển thị metadata.
+
+378
+01:02:12,000 --> 01:02:18,000
+Rồi như vậy đã xong
+
+379
+01:02:21,000 --> 01:02:27,000
+xong phần code đấy. Đấy.
+
+380
+01:02:48,000 --> 01:02:51,800
+Chúng ta đã xong phần code frontend rồi.
+

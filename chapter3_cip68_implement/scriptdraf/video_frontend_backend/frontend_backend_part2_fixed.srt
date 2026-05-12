@@ -1,0 +1,38 @@
+﻿1
+00:00:04,000 --> 00:00:10,000
+Vẫn lỗi nhở. Xem nào. Main nà.
+
+2
+00:00:13,000 --> 00:00:19,000
+Network network token mismatch không đúng
+network à?
+
+3
+00:00:27,000 --> 00:00:33,000
+Xem nào. Network network bằng pre
+
+4
+00:00:34,000 --> 00:00:39,850
+à. Ok hiểu rồi.
+
+5
+00:00:40,000 --> 00:00:46,000
+Do cái này nó được gán bằng network.testnet
+rồi chứ không phải preprod. Đấy chúng ta phải
+sửa cái này
+
+6
+00:00:48,000 --> 00:00:54,000
+Ok rồi. Ok.
+
+7
+00:00:56,000 --> 00:01:02,000
+Như vậy backend của chúng ta đã chạy thành
+công rồi này. Đấy đã tìm thấy file plutus này
+đã
+
+8
+00:01:05,000 --> 00:01:08,800
+được cái plutus script thành ID rồi đã có
+address của store rồi. Ok.
+

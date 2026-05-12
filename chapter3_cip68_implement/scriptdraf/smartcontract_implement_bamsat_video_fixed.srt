@@ -1,0 +1,1172 @@
+﻿1
+00:00:04,000 --> 00:00:10,800
+Xin chào mọi người. Chào mừng mọi người đã đến với video tiếp theo trong chuỗi video khóa học dạy lập trình của Canel.
+
+2
+00:00:11,000 --> 00:00:18,800
+của chúng tôi. Thì trong video này chúng ta sẽ bắt đầu triển khai ví dụ CIP-68
+
+3
+00:00:19,000 --> 00:00:30,800
+ờ mà mình đã chia sẻ khá là chi tiết trong phần lý thuyết trước đó. Thì trong các video tiếp theo chúng ta sẽ chỉ thực hiện code.
+
+4
+00:00:31,000 --> 00:00:37,800
+Thì trong video này mình sẽ trực tiếp hướng dẫn các bạn từng bước ờ code triển
+
+5
+00:00:38,000 --> 00:00:44,800
+khai hợp đồng thông minh. Đấy thì mặc định khi các bạn đã học đến video này
+
+6
+00:00:45,000 --> 00:00:51,800
+thì mình cũng mặc định là các bạn đã biết cách tạo ra một thư mục
+
+7
+00:00:52,000 --> 00:01:05,800
+Aiken trong source code của các bạn rồi nên mình sẽ không hướng dẫn lại các bạn cài Aiken như thế nào. Đấy đầu tiên thì chúng ta sẽ vào tạo thư mục luôn. Đấy.
+
+8
+00:01:06,000 --> 00:01:14,800
+Ok. Chúng ta đã tạo xong thư mục Aiken dùng để code hợp đồng thông minh. Trong thư mục này nó sẽ bao gồm các cái thư mục và
+
+9
+00:01:15,000 --> 00:01:21,800
+các file cần thiết để thực hiện biên dịch hợp đồng mã nguồn. Thì mình đang sử
+
+10
+00:01:22,000 --> 00:01:29,800
+dụng phiên bản gọi là Aiken V1.1.19 và biên dịch sang Plutus V3. Mọi
+
+11
+00:01:30,000 --> 00:01:36,800
+người chú ý để không bị lệch cú pháp so với hướng dẫn của mình nhé. Đầu tiên thì
+
+12
+00:01:37,000 --> 00:01:43,800
+chúng ta sẽ vào project.
+
+13
+00:01:44,000 --> 00:01:50,800
+Ok xong rồi. Chúng ta sẽ đi vào code luôn.
+
+14
+00:01:51,000 --> 00:02:02,800
+thêm một file `cip68.ak` để code hợp đồng.
+
+15
+00:02:03,000 --> 00:02:05,800
+xóa bỏ cái file có sẵn đi.
+
+16
+00:02:06,000 --> 00:02:14,800
+Rồi ok thì mình sẽ tóm tắt lại một chút về các công
+
+17
+00:02:15,000 --> 00:02:23,800
+việc mình sẽ thực hiện trong cái việc viết hợp đồng này thì chúng ta sẽ có hai cái hợp đồng chính mà chúng ta sẽ
+
+18
+00:02:24,000 --> 00:02:31,800
+viết. Hợp đồng thứ nhất là hợp đồng dùng để mint. Tức là hợp đồng mint này nó
+
+19
+00:02:32,000 --> 00:02:40,800
+sẽ tạo ra một cái minting policy script dùng để mint hoặc burn NFT,
+
+20
+00:02:41,000 --> 00:02:49,800
+token theo chuẩn CIP-68 này này. Đấy thì đây chính là cái cách min ra một cái
+
+21
+00:02:50,000 --> 00:02:58,800
+token hay là một cái NFT trên hệ sinh thái Cardano. Đấy, trong những bài học trước đó mình cũng đã giới thiệu sơ qua
+
+22
+00:02:59,000 --> 00:03:07,800
+về một số cách mint, cách đơn giản nhất là dùng native script. Đấy, thì trong bài học
+
+23
+00:03:08,000 --> 00:03:18,800
+này thì chúng ta sẽ thực hiện mint theo kiểu Plutus script. Đấy.
+
+24
+00:03:19,000 --> 00:03:26,800
+Và cái hợp đồng thứ hai đó là cái hợp đồng dùng để lưu trữ các UTxO chứa
+
+25
+00:03:27,000 --> 00:03:34,800
+reference token mà chúng ta đã thảo luận khá là chi tiết trong phần lý
+
+26
+00:03:35,000 --> 00:03:42,800
+thuyết. Đấy. Rồi. Ok. Sau khi nói xong lý thuyết rồi, chúng ta sẽ nhảy vào code. Đấy,
+
+27
+00:03:43,000 --> 00:03:51,800
+đầu tiên đó là chúng ta sẽ import cái thư viện đầu tiên đó là thư viện list này. Đấy, để thực
+
+28
+00:03:52,000 --> 00:03:58,800
+hiện ờ các cái công việc liên quan đến duyệt qua danh sách, các cái input hoặc
+
+29
+00:03:59,000 --> 00:04:05,800
+là output. Đấy. Thứ hai là thư viện là bytearray để xử lý
+
+30
+00:04:06,000 --> 00:04:17,800
+liên quan đến bytearray. Và tiếp theo là Policy ID này. Tiếp theo là thư viện liên quan đến transaction để truy cập thông tin giao dịch.
+
+31
+00:04:18,000 --> 00:04:20,800
+Ok.
+
+32
+00:04:21,000 --> 00:04:27,800
+Sau khi chúng ta đã import xong các cái thư viện cần thiết rồi thì mình sẽ đi vào code luôn. Trước khi code mình sẽ
+
+33
+00:04:28,000 --> 00:04:34,800
+nói một chút vì đây là một gọi là khóa học mang tính chất là dạng
+
+34
+00:04:35,000 --> 00:04:43,800
+dạy. Chính vì thế mà chúng mình cũng cố gắng cung cấp những nội dung gọi là cốt lõi nhất để mọi người hiểu và hình dung,
+
+35
+00:04:44,000 --> 00:04:51,800
+nắm được nguyên lý hoạt động của nó. Từ đó sau các sau này khi mọi người ứng
+
+36
+00:04:52,000 --> 00:05:01,800
+dụng và thực tế mọi người sẽ tạo ra những cái bài toán nó phức tạp hơn nhưng lõi của nó vẫn phải tuân theo những nguyên lý mà chúng ta chia sẻ. Chính vì
+
+37
+00:05:02,000 --> 00:05:08,800
+thế mà hợp đồng thông minh của chúng ta sẽ chỉ là hợp đồng đơn giản thôi. Đấy.
+
+38
+00:05:09,000 --> 00:05:20,800
+Và cái CIP-68 sẽ luôn sử dụng hai cái token mà chúng ta đã chia sẻ đó là reference token.
+
+39
+00:05:21,000 --> 00:05:24,800
+Nó sẽ được lưu trữ ở cái hợp đồng store.
+
+40
+00:05:25,000 --> 00:05:30,800
+Đấy. Còn cái user token là cái token mà mọi người sở hữu và user token sẽ được
+
+41
+00:05:31,000 --> 00:05:39,800
+liên kết với cái reference token thông qua cái policy ID và asset name ấy. Đấy.
+
+42
+00:05:40,000 --> 00:05:43,800
+Rồi ok.
+
+43
+00:05:44,000 --> 00:05:52,800
+Đấy, mình cũng cung cấp thêm prefix của ref token là
+
+44
+00:05:53,000 --> 00:05:59,800
+chuỗi bytes `000643b0`. Còn user token là chuỗi
+
+45
+00:06:00,000 --> 00:06:12,800
+`000de140`. Đấy, rồi bắt đầu vào code rồi.
+
+46
+00:06:13,000 --> 00:06:19,800
+Reference token nằm trong script
+
+47
+00:06:20,000 --> 00:06:24,800
+để chứa datum.
+
+48
+00:06:25,000 --> 00:06:34,800
+Còn user token nằm trong ví của người dùng để thể hiện
+
+49
+00:06:35,000 --> 00:06:42,800
+quyền sở hữu
+
+50
+00:06:43,000 --> 00:06:52,800
+đối với tài sản.
+
+51
+00:06:53,000 --> 00:07:03,800
+Đây vẫn chỉ là những cái nội dung mình đã chia sẻ khá là chi tiết trong bài học trước đó. Đấy, không có gì mới mẻ cả.
+
+52
+00:07:04,000 --> 00:07:10,800
+Rồi tiếp theo là chúng ta sẽ đầu tiên có một số kiểu dữ liệu mà chúng
+
+53
+00:07:11,000 --> 00:07:18,800
+ta sẽ phải định nghĩa. Đầu tiên đó là redeemer cho hợp đồng mint và redeemer
+
+54
+00:07:19,000 --> 00:07:26,800
+cho cái hợp đồng store tức là hợp đồng để chứa cái reference token đấy. Đấy và cái datum.
+
+55
+00:07:27,000 --> 00:07:35,800
+Đấy đầu tiên thì chúng ta sẽ định nghĩa redeemer cho mint trước, thì chúng ta sẽ khai báo là
+
+56
+00:07:36,000 --> 00:07:45,800
+Mint redeemer này. Đấy nó sẽ có hai hành động,
+
+57
+00:07:46,000 --> 00:07:54,800
+hành động mint và hành động burn. Đấy.
+
+58
+00:07:55,000 --> 00:08:02,800
+Tiếp theo thì cái min này nó sẽ nhận vào tham số là token name. Đấy, tức là nó sẽ
+
+59
+00:08:03,000 --> 00:08:10,800
+thực hiện mint ra một cái token với token name truyền vào.
+
+60
+00:08:11,000 --> 00:08:18,800
+Còn tiếp theo là chúng ta sẽ định nghĩa redeemer cho
+
+61
+00:08:19,000 --> 00:08:33,800
+hợp đồng store, tức là `SpendRedeemer`.
+
+62
+00:08:34,000 --> 00:08:40,800
+Redeemer của hợp đồng store thì nó sẽ có hai hành động:
+
+63
+00:08:41,000 --> 00:08:48,800
+`UpdateMetadata` hoặc `BurnReference`.
+
+64
+00:08:49,000 --> 00:08:55,800
+khi burn thì chúng ta sẽ thực hiện chi tiêu UTxO,
+
+65
+00:08:56,000 --> 00:09:04,800
+đấy nên chúng ta phải có cái hành động gửi lên hợp đồng thông minh để biết được đó là hành động chi tiêu đúng không?
+
+66
+00:09:05,000 --> 00:09:12,800
+Đấy, chi tiêu UTxO sẽ khác với bơ token nhé.
+
+67
+00:09:13,000 --> 00:09:22,800
+Chi chi tiêu UTxO tức là mọi người chi tiêu cái khỏi cái hợp đồng nó đi. Đấy, còn bơ
+
+68
+00:09:23,000 --> 00:09:29,800
+token là làm nó hủy bỏ cái token trên toàn bộ chuỗi.
+
+69
+00:09:30,000 --> 00:09:35,800
+Đấy, mọi người hiểu như thế. Tức là khi bơ nó sẽ bao gồm hai cái quá trình. Quá
+
+70
+00:09:36,000 --> 00:09:41,800
+trình đầu tiên đó là chi tiêu bỏ cái UTxO chứa cái reference token trên hợp đồng
+
+71
+00:09:42,000 --> 00:09:48,800
+store đấy. Và hành động thứ hai là hành động chính là hủy bỏ cái token đó trên
+
+72
+00:09:49,000 --> 00:09:56,800
+chuỗi. Đấy nó gồm có hai cái quá trình như vậy. Ok.
+
+73
+00:09:57,000 --> 00:10:05,800
+Sau khi định nghĩa được hai cái redeemer cho hai hợp đồng rồi, chúng ta sẽ thực hiện định nghĩa datum. Đấy, đây chính là
+
+74
+00:10:06,000 --> 00:10:18,800
+phần quyết định cái CIP-68 có thể cập nhật Datum được hay không này. Đấy, thì nó sẽ có một cái một số trường sau. Đầu tiên đó là Policy ID. Đấy,
+
+75
+00:10:19,000 --> 00:10:28,800
+policy_id dùng để định danh token và ràng buộc đúng tài sản.
+
+76
+00:10:29,000 --> 00:10:40,800
+Thứ hai là asset_name.
+
+77
+00:10:41,000 --> 00:10:43,800
+Đấy.
+
+78
+00:10:44,000 --> 00:10:53,800
+Policy ID và asset name
+
+79
+00:10:54,000 --> 00:11:04,800
+là thông tin
+
+80
+00:11:05,000 --> 00:11:10,800
+để xác định token.
+
+81
+00:11:11,000 --> 00:11:26,800
+Rồi tiếp theo là một cái trường gọi là trường owner đi. Đây chính là cái public key hash của người dùng đấy.
+
+82
+00:11:27,000 --> 00:11:33,800
+Tức là thêm cái này để thêm cái logic là khi người dùng ký giao dịch thì phải ký
+
+83
+00:11:34,000 --> 00:11:40,800
+bằng cái ví tương ứng với public key hash được lưu trong datum này thì
+
+84
+00:11:41,000 --> 00:11:51,800
+giao dịch nó mới thành công được. Tiếp theo chính là cái trường metadata. Chúng ta sẽ cập nhật cái trường này.
+
+85
+00:11:52,000 --> 00:11:59,800
+Đây, metadata chính là cái kiểu như là một đối tượng để lưu trữ dữ liệu của chúng ta. Chúng ta sẽ cập nhật cái
+
+86
+00:12:00,000 --> 00:12:06,800
+trường metadata này. Và cái trường version này cũng cập nhật cái này. Ok.
+
+87
+00:12:07,000 --> 00:12:13,800
+Sau khi chúng ta đã khởi tạo xong, khai báo xong ba cái kiểu dữ liệu phục vụ cho
+
+88
+00:12:14,000 --> 00:12:20,800
+việc viết hợp đồng thì chúng ta sẽ đi vào viết từng hợp đồng một. Thì đầu tiên
+
+89
+00:12:21,000 --> 00:12:29,800
+thì chúng ta sẽ viết hợp đồng minting policy script. Đấy, chúng ta sẽ khai báo
+
+90
+00:12:30,000 --> 00:12:38,800
+vẫn là dùng để tạo ra minting policy script để
+
+91
+00:12:39,000 --> 00:12:48,800
+đính vào giao dịch mint thôi. Và phục vụ sau này cho burn nữa. Đấy, thì hành động này là hành động mint.
+
+92
+00:12:49,000 --> 00:12:57,800
+hành động mint này với các tham số truyền vào là redeemer và transaction.
+
+93
+00:12:58,000 --> 00:13:08,800
+Tiếp theo đó là lấy ra thông tin của giao dịch mint.
+
+94
+00:13:09,000 --> 00:13:14,800
+Nếu như không phải hành động mint thì fail.
+
+95
+00:13:15,000 --> 00:13:31,800
+Rồi trong hàm mint này mình sẽ kiểm tra theo redeemer.
+
+96
+00:13:32,000 --> 00:13:35,800
+Tiếp theo kiểm tra redeemer.
+
+97
+00:13:36,000 --> 00:13:47,800
+`when redeemer is`
+
+98
+00:13:48,000 --> 00:13:56,800
+thì chúng ta sẽ có hai hành động,
+
+99
+00:13:57,000 --> 00:14:02,800
+một là `MintToken`, hai là `BurnToken`. Nếu là `MintToken` thì
+
+100
+00:14:03,000 --> 00:14:15,800
+sao? `MintToken` với tham số là token name.
+
+101
+00:14:16,000 --> 00:14:33,800
+token name này.
+
+102
+00:14:34,000 --> 00:14:35,800
+tham số token name.
+
+103
+00:14:36,000 --> 00:14:43,800
+Đầu tiên là chúng ta sẽ phải tạo ra asset name theo chuẩn CIP-68
+
+104
+00:14:44,000 --> 00:14:48,800
+thì chúng ta sẽ tạo asset name cho cái reference token.
+
+105
+00:14:49,000 --> 00:14:55,800
+Đấy thì hàm `bytearray.concat` này
+
+106
+00:14:56,000 --> 00:15:01,800
+chính là nối cái prefix vào cái token name để
+
+107
+00:15:02,000 --> 00:15:10,800
+để định nghĩa đó là reference token. Đấy tương tự chúng ta
+
+108
+00:15:11,000 --> 00:15:18,800
+sẽ tạo user token nối thêm cái prefix vào. Rồi sau khi đã
+
+109
+00:15:19,000 --> 00:15:25,800
+tạo xong rồi nhá thì chúng ta sẽ thực hiện kiểm tra min đúng số lượng token
+
+110
+00:15:26,000 --> 00:15:30,800
+rồi chúng ta sẽ lấy ra
+
+111
+00:15:31,000 --> 00:15:41,800
+số lượng mint
+
+112
+00:15:42,000 --> 00:15:47,800
+bằng cách dùng hàm
+
+113
+00:15:48,000 --> 00:15:55,800
+`assets.quantity_of`. Hàm này dùng để
+
+114
+00:15:56,000 --> 00:16:04,800
+lấy ra số lượng reference token theo policy ID và reference token name
+
+115
+00:16:05,000 --> 00:16:11,800
+là bao nhiêu trong giao dịch mint.
+
+116
+00:16:12,000 --> 00:16:18,800
+Tiếp theo là lấy cái user amount.
+
+117
+00:16:19,000 --> 00:16:29,800
+Rồi tiếp theo thì chúng ta sẽ kiểm tra giao dịch mint này phải mint đúng số lượng.
+
+118
+00:16:30,000 --> 00:16:38,800
+Đấy. Ok. Mình xin nhắc lại một lần nữa nhé.
+
+119
+00:16:39,000 --> 00:16:45,800
+Nếu như redeemer là hành động `MintToken` truyền vào tham số token name,
+
+120
+00:16:46,000 --> 00:16:52,800
+thì chúng ta sẽ phải thực hiện xây dựng reference token name và user token name
+
+121
+00:16:53,000 --> 00:17:00,800
+đấy bằng cách nối thêm các cái prefix tương ứng với từng loại token.
+
+122
+00:17:01,000 --> 00:17:10,800
+Đấy, sau khi tạo token name xong, chúng ta sẽ lấy ra số lượng của hành động mint cho
+
+123
+00:17:11,000 --> 00:17:17,800
+token với cái policy ID và cái reference token name tương ứng. Đấy. Và kiểm tra
+
+124
+00:17:18,000 --> 00:17:27,800
+điều kiện là chỉ được phép mint đúng một ref token và một user token thôi. Đấy. Ok.
+
+125
+00:17:28,000 --> 00:17:35,800
+Bước tiếp theo chúng ta sẽ viết logic cho Burn.
+
+126
+00:17:36,000 --> 00:17:46,800
+Burn token cũng tương tự như vậy và cũng nhận tham số token name.
+
+127
+00:17:47,000 --> 00:17:54,800
+Cũng xử lý ờ cái token name dưới dạng CIP-68 chuẩn sau đó cũng lấy ra số
+
+128
+00:17:55,000 --> 00:18:01,800
+lượng và kiểm tra. Tuy nhiên khác ở burn là nó phải là -1. Ok chưa?
+
+129
+00:18:02,000 --> 00:18:07,800
+Ok. Chúng ta bước sang bước tiếp theo.
+
+130
+00:18:08,000 --> 00:18:14,800
+Rồi về cơ bản thì phần mint
+
+131
+00:18:15,000 --> 00:18:28,800
+chỉ có logic như vậy thôi, không quá phức tạp. Đấy,
+
+132
+00:18:29,000 --> 00:18:34,800
+về cơ bản phần mint thì không phức tạp như mọi người nghĩ. Nó chỉ là một
+
+133
+00:18:35,000 --> 00:18:45,800
+cái hợp đồng có cái logic để tạo ra một cái policy script. Đấy,
+
+134
+00:18:46,000 --> 00:18:50,800
+ok, đã xong phần hợp đồng mint nhé.
+
+135
+00:18:51,000 --> 00:18:57,800
+Tiếp theo thì chúng ta sẽ vào code hợp đồng store để chứa
+
+136
+00:18:58,000 --> 00:19:07,800
+các UTxO chứa reference token.
+
+137
+00:19:08,000 --> 00:19:17,800
+Và thực hiện các logic update hoặc burn, thì chúng ta nhảy vào code luôn.
+
+138
+00:19:18,000 --> 00:19:24,800
+Đầu tiên đó là khai báo
+
+139
+00:19:25,000 --> 00:19:34,800
+đây. Khai báo validator `cip68_store` với hành động `spend`.
+
+140
+00:19:35,000 --> 00:19:46,800
+`spend` này có tham số đầu tiên là datum, dùng để lấy thông tin redeemer và dữ liệu hiện tại.
+
+141
+00:19:47,000 --> 00:19:54,800
+Để xem hành động là update hay burn.
+
+142
+00:19:55,000 --> 00:20:05,800
+ừ lấy thông tin tham chiếu đến cái UTxO đang được spend đấy.
+
+143
+00:20:06,000 --> 00:20:12,800
+Chú thích ở đây là tham chiếu đến UTxO
+
+144
+00:20:13,000 --> 00:20:22,800
+đang được chi tiêu, tức là spend.
+
+145
+00:20:23,000 --> 00:20:28,800
+Đấy, tiếp theo đó là transaction nhé.
+
+146
+00:20:29,000 --> 00:20:37,800
+Rồi đầu tiên thì chúng ta sẽ lấy ra thông tin liên quan đến datum này.
+
+147
+00:20:38,000 --> 00:20:51,800
+Lấy datum ra từ UTxO đang spend.
+
+148
+00:20:52,000 --> 00:20:59,800
+Ừ, đầu tiên là lấy thông tin datum.
+
+149
+00:21:00,000 --> 00:21:06,800
+Rồi đầu tiên là `expect` này.
+
+150
+00:21:07,000 --> 00:21:11,800
+Tiếp theo là lấy thông tin từ datum ra.
+
+151
+00:21:12,000 --> 00:21:23,800
+Tiếp theo là lấy thông tin để kiểm tra chữ ký, rồi lấy policy ID của tài sản.
+
+152
+00:21:24,000 --> 00:21:29,800
+Rồi tiếp theo là lấy asset name.
+
+153
+00:21:30,000 --> 00:21:38,800
+Rồi thì cái hợp đồng này,
+
+154
+00:21:39,000 --> 00:21:44,800
+tức là hợp đồng store,
+
+155
+00:21:45,000 --> 00:21:54,800
+được thiết kế để với action update sẽ có các điều kiện bắt buộc.
+
+156
+00:21:55,000 --> 00:22:03,800
+Điều kiện thứ nhất là phải được ký bởi owner.
+
+157
+00:22:04,000 --> 00:22:13,800
+Điều kiện thứ hai là input khi chi tiêu phải có reference token.
+
+158
+00:22:14,000 --> 00:22:22,800
+Điều kiện thứ ba là output trả lại hợp đồng
+
+159
+00:22:23,000 --> 00:22:32,800
+phải có reference token và datum mới hợp lệ.
+
+160
+00:22:33,000 --> 00:22:39,800
+Đấy.
+
+161
+00:22:40,000 --> 00:22:46,800
+Output trả lại đúng hợp đồng,
+
+162
+00:22:47,000 --> 00:22:52,800
+có token và có datum mới.
+
+163
+00:22:53,000 --> 00:23:01,800
+Datum mới thì
+
+164
+00:23:02,000 --> 00:23:06,800
+chỉ được cập nhật metadata và version,
+
+165
+00:23:07,000 --> 00:23:16,800
+còn policy_id, asset_name, owner phải giữ nguyên. Rồi nhé, đầu tiên thì
+
+166
+00:23:17,000 --> 00:23:22,800
+chúng ta sẽ viết logic kiểm tra chữ ký trước.
+
+167
+00:23:23,000 --> 00:23:26,800
+Logic kiểm tra chữ ký này khá đơn giản.
+
+168
+00:23:27,000 --> 00:23:38,800
+Rồi ok, kết thúc kiểm tra chữ ký.
+
+169
+00:23:39,000 --> 00:23:46,800
+Ok, xong phần này rồi nhé. Tiếp theo chúng ta viết `when redeemer is`.
+
+170
+00:23:47,000 --> 00:23:56,800
+Lúc nãy có đoạn thừa thì mình xóa đi.
+
+171
+00:23:57,000 --> 00:24:04,800
+Rồi viết lại từ đầu.
+
+172
+00:24:05,000 --> 00:24:11,800
+`when redeemer is`
+
+173
+00:24:12,000 --> 00:24:17,800
+đầu tiên là `UpdateMetadata`.
+
+174
+00:24:18,000 --> 00:24:23,800
+Với `UpdateMetadata` thì đầu tiên là
+
+175
+00:24:24,000 --> 00:24:34,800
+input khi chi tiêu phải có reference token, nên chúng ta phải tìm input của script.
+
+176
+00:24:35,000 --> 00:24:41,800
+Tìm own input của script.
+
+177
+00:24:42,000 --> 00:24:54,800
+Đầu tiên là kiểm tra input này có chứa reference token hay không.
+
+178
+00:24:55,000 --> 00:25:04,800
+Rồi sau đấy thì chúng ta sẽ lấy ra
+
+179
+00:25:05,000 --> 00:25:18,800
+địa chỉ của hợp đồng thông minh.
+
+180
+00:25:19,000 --> 00:25:26,800
+Đấy, lấy địa chỉ của hợp đồng từ
+
+181
+00:25:27,000 --> 00:25:34,800
+own input này.
+
+182
+00:25:35,000 --> 00:25:43,800
+Tiếp theo thì chúng ta sẽ tạo reference token name bằng cách nối prefix vào
+
+183
+00:25:44,000 --> 00:25:50,800
+`datum.asset_name`.
+
+184
+00:25:51,000 --> 00:26:01,800
+Rồi tiếp theo thì chúng ta kiểm tra input có chứa ref token name hay không.
+
+185
+00:26:02,000 --> 00:26:14,800
+Rồi.
+
+186
+00:26:15,000 --> 00:26:36,800
+`let input_has_ref_token = assets.quantity_of(...) == 1`
+
+187
+00:26:37,000 --> 00:26:46,800
+Trong `own_input.output.value`,
+
+188
+00:26:47,000 --> 00:26:54,800
+theo đúng policy ID
+
+189
+00:26:55,000 --> 00:27:05,800
+và reference token name, rồi kiểm tra bằng 1.
+
+190
+00:27:06,000 --> 00:27:14,800
+Hàm này mục đích là kiểm tra input
+
+191
+00:27:15,000 --> 00:27:19,800
+có chứa reference token name hay không.
+
+192
+00:27:20,000 --> 00:27:24,800
+Rồi ok xong rồi.
+
+193
+00:27:25,000 --> 00:27:38,800
+Xong phần kiểm tra input.
+
+194
+00:27:39,000 --> 00:27:52,800
+Input phải chứa ref token name. Tiếp theo là kiểm tra
+
+195
+00:27:53,000 --> 00:27:58,800
+output gửi lại script phải chứa
+
+196
+00:27:59,000 --> 00:28:08,800
+reference token và datum mới có các trường
+
+197
+00:28:09,000 --> 00:28:18,800
+được cập nhật đúng,
+
+198
+00:28:19,000 --> 00:28:26,800
+còn các trường identity thì không được thay đổi.
+
+199
+00:28:27,000 --> 00:28:36,800
+Đấy, chúng ta sẽ viết ra `has_valid_output` này
+
+200
+00:28:37,000 --> 00:28:48,800
+bằng `list.any(tx.outputs, ...)`.
+
+201
+00:28:49,000 --> 00:29:02,800
+Với từng output
+
+202
+00:29:03,000 --> 00:29:13,800
+thì kiểm tra datum,
+
+203
+00:29:14,000 --> 00:29:26,800
+`when output.datum is`
+
+204
+00:29:27,000 --> 00:29:42,800
+`InlineDatum(data)`
+
+205
+00:29:43,000 --> 00:29:55,800
+rồi `expect new_datum: CIP68Datum = data`.
+
+206
+00:29:56,000 --> 01:30:06,800
+Tiếp theo kiểm tra
+
+207
+01:30:07,000 --> 01:30:21,800
+output hợp lệ.
+
+208
+01:30:22,000 --> 01:30:29,800
+Output phải có
+
+209
+01:30:30,000 --> 01:30:46,800
+`assets.quantity_of(...) == 1`.
+
+210
+01:30:47,000 --> 01:30:54,800
+Đấy. Tức là luồng của đoạn này là:
+
+211
+01:30:55,000 --> 01:31:02,800
+Đầu tiên kiểm tra output gửi lên hợp đồng
+
+212
+01:31:03,000 --> 01:31:07,800
+mới có chứa UTxO,
+
+213
+01:31:08,000 --> 01:31:17,800
+mà UTxO mới phải chứa reference token.
+
+214
+01:31:18,000 --> 01:31:27,800
+Để tránh trường hợp UTxO gửi lên hợp đồng không chứa ref token
+
+215
+01:31:28,000 --> 01:31:34,800
+thì user token sẽ không liên kết đúng.
+
+216
+01:31:35,000 --> 01:31:47,800
+Đấy, bước này là logic ràng buộc quan trọng.
+
+217
+01:31:48,000 --> 01:31:49,800
+Ok.
+
+218
+01:31:50,000 --> 01:32:01,800
+Rồi tiếp theo
+
+219
+01:32:02,000 --> 01:32:10,800
+sẽ có thêm các điều kiện kiểm tra thông tin sau update.
+
+220
+01:32:11,000 --> 01:32:20,800
+Một là
+
+221
+01:32:21,000 --> 01:32:28,800
+output phải
+
+222
+01:32:29,000 --> 01:32:34,800
+có địa chỉ output đúng địa chỉ hợp đồng store.
+
+223
+01:32:35,000 --> 01:32:43,800
+Tiếp theo là output phải có ref token.
+
+224
+01:32:44,000 --> 01:32:45,200
+Đấy.
+
+225
+01:32:45,000 --> 01:32:48,800
+Tiếp theo là new datum.
+
+226
+01:32:49,000 --> 01:32:59,800
+Policy ID phải giữ nguyên, asset name cũng phải giữ nguyên, không được thay đổi.
+
+227
+01:33:00,000 --> 01:33:23,800
+Và nếu không thỏa thì fail.
+
+228
+01:33:24,000 --> 01:33:37,800
+Tiếp theo là điều kiện `must_be_signed`, phải được ký bởi user tương ứng.
+
+229
+01:33:38,000 --> 01:33:45,800
+Ngoài ra input phải chứa reference token và output cũng phải chứa reference token.
+
+230
+01:33:46,000 --> 01:33:57,800
+Kết hợp tất cả các điều kiện này.
+
+231
+01:33:58,000 --> 01:34:08,800
+Đó, đôi khi thiếu ngoặc thì sẽ lỗi.
+
+232
+01:34:09,000 --> 01:34:15,800
+Đây, đúng không?
+
+233
+01:34:16,000 --> 01:34:23,800
+Rồi tiếp theo là đến phần burn. Phần update xong rồi.
+
+234
+01:34:24,000 --> 01:34:35,800
+Xong rồi nhé, `BurnReference`.
+
+235
+01:34:36,000 --> 01:34:45,800
+Thì chúng ta chỉ cần điều kiện là phải được ký bởi owner.
+
+236
+01:34:46,000 --> 01:34:57,800
+Tức là phải được ký bởi ví tương ứng với public key hash trong datum.
+
+237
+01:34:58,000 --> 01:35:06,800
+Rồi đã code xong hợp đồng, giờ chúng ta check thử xem nào.
+
+238
+01:35:07,000 --> 01:35:10,800
+Một lỗi. Lỗi ở đâu đây?
+
+239
+01:35:11,000 --> 01:35:18,800
+Expect new datum nà. À rồi cái này là hai chấm chứ không phải bằng đâu.
+
+240
+01:35:19,000 --> 01:35:23,800
+Cái này lại thiếu mất dấu ngoặc nào rồi.
+
+241
+01:35:24,000 --> 01:35:35,800
+`when` mất cái ngoặc này đúng không?
+
+242
+01:35:36,000 --> 01:35:57,800
+Rồi những này thừa không? Rồi đấy.
+
+243
+01:35:58,000 --> 01:36:03,800
+Đâu nhỉ? `expect new_datum` này.
+
+244
+01:36:04,000 --> 01:37:02,800
+Thiếu khai báo nên vẫn sai nhiều lỗi quá.
+
+245
+01:37:03,000 --> 01:37:12,800
+Rồi nên bây giờ mới đúng này. Mình xin lỗi các bạn, mình hơi chủ quan trong việc
+
+246
+01:37:13,000 --> 01:37:21,800
+xử lý cú pháp address.
+
+247
+01:37:22,000 --> 01:37:32,800
+`script_address`
+
+248
+01:37:33,000 --> 01:37:48,800
+ở output.
+
+249
+01:37:49,000 --> 01:37:57,800
+rồi `expect Some(own_input)`
+
+250
+01:37:58,000 --> 01:38:09,800
+input này đấy.
+
+251
+01:38:10,000 --> 01:38:20,800
+`quantity_of` này.
+
+252
+01:38:21,000 --> 01:38:30,800
+owner, input, output sao lại không có nhỉ?
+
+253
+01:38:31,000 --> 01:38:40,800
+`list.find(tx.inputs, fn(input) { ... })`
+
+254
+01:38:41,000 --> 01:38:51,800
+`input.output_reference` này.
+
+255
+01:38:52,000 --> 01:38:59,800
+Rồi, script_address lấy từ own input.
+
+256
+01:39:00,000 --> 01:39:06,800
+và đối chiếu với output.address.
+
+257
+01:39:07,000 --> 01:39:18,800
+`input_has_ref_token` dùng `assets.quantity_of`.
+
+258
+01:39:19,000 --> 01:39:36,800
+Input này với datum này có khác gì đâu nhỉ?
+
+259
+01:39:37,000 --> 01:40:10,800
+`has_valid_output = list.any(...)`.
+
+260
+01:40:11,000 --> 01:40:27,800
+Output này
+
+261
+01:40:28,000 --> 01:41:30,800
+output này phải satisfy điều kiện.
+
+262
+01:41:31,000 --> 01:41:44,800
+Rồi check lại, giờ ổn rồi.
+
+263
+01:41:45,000 --> 01:42:03,800
+(đoạn nói không rõ)
+
+264
+01:42:04,000 --> 01:42:12,800
+Mình vừa thêm một dấu rồi. Ok, như vậy đã check thành công.
+
+265
+01:42:13,000 --> 01:42:18,800
+rồi. Mình xin lỗi các bạn một chút về một số sự cố trong cú pháp. Mong các bạn
+
+266
+01:42:19,000 --> 01:42:24,800
+thông cảm. Đấy, sau khi chúng ta sửa xong nó cũng đã check thành công rồi.
+
+267
+01:42:25,000 --> 01:42:33,800
+Đấy, mình sẽ điểm lại một chút về cái hợp đồng của chúng ta. Thì chúng ta sẽ có hai cái hợp đồng chính. Hợp đồng đầu
+
+268
+01:42:34,000 --> 01:42:43,800
+tiên đó là hợp đồng dùng để tạo ra minting policy script, mục đích là dùng để mint và burn token.
+
+269
+01:42:44,000 --> 01:42:52,800
+Và cái hợp đồng thứ hai là hợp đồng store, tức là dùng để chứa các UTxO.
+
+270
+01:42:53,000 --> 01:43:04,800
+Đấy, trong UTxO sẽ chứa những cái datum để chúng ta update. Đấy, và trong nó sẽ có cái reference token.
+
+271
+01:43:05,000 --> 01:43:07,800
+Đấy.
+
+272
+01:43:08,000 --> 01:43:20,800
+Đấy, hợp đồng update thì chúng ta sẽ có các hành động là update metadata hoặc burn. Đấy,
+
+273
+01:43:21,000 --> 01:43:27,800
+đối với update thì nó sẽ có ba điều kiện. Điều kiện đầu tiên khi thực hiện
+
+274
+01:43:28,000 --> 01:43:35,800
+ký giao dịch thì nó phải được ký đúng với cái khóa tương ứng với cái khóa được lưu trữ trong datum. Đấy, điều kiện
+
+275
+01:43:36,000 --> 01:43:43,800
+thứ hai đó là cái input khi được chi tiêu nó phải chứa cái reference token.
+
+276
+01:43:44,000 --> 01:43:50,800
+Và điều kiện thứ ba đó là cái output được tạo ra gửi lên hợp đồng
+
+277
+01:43:51,000 --> 01:43:58,800
+thì nó phải gửi đúng hợp đồng này. Thứ hai là nó phải chứa reference token. Và
+
+278
+01:43:59,000 --> 01:44:05,800
+tiếp theo là các cái trường thông tin thì nó không được thay đổi ngoài cái trường metadata và version. Đấy.
+
+279
+01:44:06,000 --> 01:44:14,800
+Đấy như vậy thì mình cũng đã hướng dẫn các bạn khá là chi tiết về cái quy trình mình code hợp đồng thông minh cũng như
+
+280
+01:44:15,000 --> 01:44:22,800
+là triển khai nó để tạo ra cái ờ gì nhở?
+
+281
+01:44:23,000 --> 01:44:29,800
+Một cái bản hợp đồng gọi là đơn đơn giản hóa nhất có thể. giúp mọi người hiểu
+
+282
+01:44:30,000 --> 01:44:36,800
+được một cái quy trình, những cái logic cần phải có trong cái hợp đồng thông
+
+283
+01:44:37,000 --> 01:44:43,800
+minh của một cái dự án theo chuẩn CIP-68 nó bao gồm những thành phần nào. Đấy,
+
+284
+01:44:44,000 --> 01:44:50,800
+tiếp theo thì vì đã check thành công rồi thì chúng ta sẽ thực hiện build giao dịch
+
+285
+01:44:51,000 --> 01:44:59,800
+để nó biên dịch cái file hợp đồng của chúng ta thành cái file plutus.json phục vụ mục đích để xử lý như là code
+
+286
+01:45:00,000 --> 01:45:08,800
+off chain hoặc là back end trong các bài học tiếp theo. Đấy, chúng ta sẽ thực hiện câu lệnh aiken build.
+
+287
+01:45:09,000 --> 01:45:16,800
+Rồi trong source code thư mục hợp đồng thông minh của chúng ta sẽ có thêm một file.
+
+288
+01:45:17,000 --> 01:45:23,800
+Đây là file mà hệ thống đã biên dịch cho chúng ta. Đấy. Ok.
+
+289
+01:45:24,000 --> 01:45:31,800
+Như vậy thì mình đã chia sẻ hướng dẫn khá là chi tiết trong
+
+290
+01:45:32,000 --> 01:45:41,800
+cái phần hướng dẫn code hợp đồng thông minh theo chuẩn CIP-68. Mong rằng nó sẽ giúp mọi người hiểu được nguyên lý
+
+291
+01:45:42,000 --> 01:45:48,800
+hoạt động để sau này có thể code ra những cái
+
+292
+01:45:49,000 --> 01:45:54,800
+ứng dụng thực tế áp dụng CIP-68. Hơn nữa phục vụ mục đích đời sống hàng ngày
+
+293
+01:45:55,000 --> 01:45:59,000
+của mọi người. Và đến đây thì mình xin phép kết thúc video tại đây. Xin chào mọi người.
+
