@@ -292,8 +292,21 @@ async def root():
 
 
 @app.get("/v1/health")
+@app.head("/v1/health")
 async def health_check():
     """UptimeRobot keep-alive endpoint."""
+    return {
+        "status": "ok",
+        "service": "CIP-68 Dynamic Asset API",
+        "network": os.getenv("NETWORK", "Preprod"),
+        "timestamp": datetime.now().isoformat()
+    }
+
+
+@app.get("/api/health")
+@app.head("/api/health")
+async def api_health_check():
+    """Compatibility health endpoint for HEAD/GET pings."""
     return {
         "status": "ok",
         "service": "CIP-68 Dynamic Asset API",
