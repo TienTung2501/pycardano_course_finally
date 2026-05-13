@@ -183,6 +183,18 @@ Xem tài liệu API tự động: **http://127.0.0.1:8000/docs**
 
 ---
 
+## Keep-Alive cho Render (UptimeRobot)
+
+Render free có thể sleep nếu không có request. Dùng UptimeRobot để ping endpoint:
+
+- **Monitor Type:** HTTP(s)
+- **URL:** `https://<your-render-domain>/v1/health`
+- **Interval:** 5 minutes
+- **Method:** GET
+- **Keyword (optional):** `"ok"`
+
+---
+
 ## Frontend (Next.js — Tùy chọn)
 
 ```powershell

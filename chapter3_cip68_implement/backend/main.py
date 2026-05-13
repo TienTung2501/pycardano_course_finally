@@ -289,6 +289,17 @@ async def root():
         "network": os.getenv("NETWORK", "Preprod"),
         "timestamp": datetime.now().isoformat()
     }
+
+
+@app.get("/v1/health")
+async def health_check():
+    """UptimeRobot keep-alive endpoint."""
+    return {
+        "status": "ok",
+        "service": "CIP-68 Dynamic Asset API",
+        "network": os.getenv("NETWORK", "Preprod"),
+        "timestamp": datetime.now().isoformat()
+    }
 # Endpoint chuyển đổi địa chỉ từ hex sang bech32
 @app.get("/api/convert-address")
 async def convert_address(hex_address: str = Query(..., description="Hex-encoded address from CIP-30")):
